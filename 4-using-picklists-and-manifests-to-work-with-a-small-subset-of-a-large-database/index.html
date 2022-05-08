@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        
+        
+        <link rel="shortcut icon" href="../img/favicon.ico">
+        <title>Example 4: using picklists and manifests to work with a small subset of a large database - My Docs</title>
+        <link href="../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/styles/github.min.css">
+
+        <script src="../js/jquery-1.10.2.min.js" defer></script>
+        <script src="../js/bootstrap.min.js" defer></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.5.0/highlight.min.js"></script>
+        <script>hljs.initHighlightingOnLoad();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="..">My Docs</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href=".." class="nav-link">Home</a>
+                            </li>
+                            <li class="dropdown active">
+                                <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
+                                <ul class="dropdown-menu">
+                                    
+<li>
+    <a href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/" class="dropdown-item">Example 1: downloading, sketching, and searching a collection of FASTA files</a>
+</li>
+                                    
+<li>
+    <a href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/" class="dropdown-item">Example 2: creating and using an LCA database for taxonomic analysis</a>
+</li>
+                                    
+<li>
+    <a href="../3-using-sourmash-tax-to-classify-a-metagenome/" class="dropdown-item">Example 3: using `sourmash tax` to classify a metagenome</a>
+</li>
+                                    
+<li>
+    <a href="./" class="dropdown-item active">Example 4: using picklists and manifests to work with a small subset of a large database</a>
+</li>
+                                    
+<li>
+    <a href="../5-searching-collection-manifests-directly/" class="dropdown-item">Example 5: searching collection manifests directly</a>
+</li>
+                                    
+<li>
+    <a href="../6-create-a-conda-environment-with-the-latest-version-of-sourmash/" class="dropdown-item">Example 6: create a conda environment with the latest version of sourmash</a>
+</li>
+                                    
+<li>
+    <a href="../7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/" class="dropdown-item">Example 7: using `genome_updater.sh` and `sketch fromfile` to build a custom database</a>
+</li>
+                                </ul>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../3-using-sourmash-tax-to-classify-a-metagenome/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../5-searching-collection-manifests-directly/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="1"><a href="#example-4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database" class="nav-link">Example 4: using picklists and manifests to work with a small subset of a large database</a>
+              <ul class="nav flex-column">
+            <li class="nav-item" data-level="2"><a href="#extract-a-manifest" class="nav-link">Extract a manifest</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#make-a-picklist-from-the-manifest-row-names" class="nav-link">Make a picklist from the manifest row names</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            <li class="nav-item" data-level="2"><a href="#search-using-the-picklist" class="nav-link">Search using the picklist</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<h1 id="example-4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database">Example 4: using picklists and manifests to work with a small subset of a large database</h1>
+<p>Suppose you want to search, compare, or otherwise work with only a small set of genomes from GTDB - perhaps only the ones with "Shewanella" in their name.</p>
+<p>sourmash makes this easy!</p>
+<p>Start by downloading the GTDB genomic representatives database from <a href="https://sourmash.readthedocs.io/en/latest/databases.html">the prepared databases</a>.</p>
+<pre><code class="language-shell">curl -JLO https://osf.io/3a6gn/download
+</code></pre>
+<p>This will download a 1.7 GB file named <code>gtdb-rs207.genomic-reps.dna.k31.zip</code>.</p>
+<h2 id="extract-a-manifest">Extract a manifest</h2>
+<p>Now extract a manifest containing all of the metadata about signatures in this zip file:</p>
+<pre><code class="language-shell">sourmash sig manifest gtdb-rs207.genomic-reps.dna.k31.zip  -o gtdb.mf --no-rebuild
+</code></pre>
+<p>(Here, the <code>--no-rebuild</code> just uses the manifest included in the zip file, rather than regenerating it from scratch.)</p>
+<p>Use <a href="https://bioinf.shenwei.me/csvtk/usage/">csvtk</a> to extract the <code>name</code> column and then use <code>grep</code> to select only those with <code>Shewanella</code> in their name -</p>
+<pre><code class="language-shell">csvtk cut -f name gtdb.mf | grep -i Shewanella &gt; shew.names.csv
+</code></pre>
+<p>You should see that you have 98 matches:</p>
+<pre><code class="language-shell">wc -l shew.names.csv 
+</code></pre>
+<h2 id="make-a-picklist-from-the-manifest-row-names">Make a picklist from the manifest row names</h2>
+<p>Turn this list into a picklist file by providing a column header:</p>
+<pre><code>echo name &gt; shew-picklist.csv
+cat shew.names.csv &gt;&gt; shew-picklist.csv
+``
+
+## Get a query signature
+
+Run:
+```shell
+sourmash sig grep GCA_002341165 gtdb-rs207.genomic-reps.dna.k31.zip -o shew-query.sig
+</code></pre>
+<p>to pick out just one of the Shewanella signatures, to use as a search query.</p>
+<h2 id="search-using-the-picklist">Search using the picklist</h2>
+<p>Now you can search just the Shewanella genomes using the picklist:</p>
+<pre><code>sourmash search shew-query.sig gtdb-rs207.genomic-reps.dna.k31.zip --picklist shew-picklist.csv:name:name
+</code></pre>
+<p>This is much faster than searching the entire database (which contains 66k signatures) as long as you know you just want to search that specific list of Shewanella genomes.</p>
+<p><strong>Note:</strong> You could use just the space-delimited identifiers as a picklist, too, by using <code>ident</code> as the column type in the argument to <code>--picklist</code>, above. Please <a href="https://sourmash.readthedocs.io/en/latest/command-line.html#using-picklists-to-subset-large-collections-of-signatures">see the picklist docs</a> for details.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script>
+            var base_url = "..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../js/base.js" defer></script>
+        <script src="../search/main.js" defer></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
