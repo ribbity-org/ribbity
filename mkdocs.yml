@@ -1,4 +1,5 @@
-site_name: My Docs
+site_name: sourmash examples
+site_url: https://ctb.github.io/ribbity/
 
 nav:
 - Home: index.md

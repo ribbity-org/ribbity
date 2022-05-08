@@ -1,13 +1,14 @@
 #! /usr/bin/env python
+"""
+Dump a bunch of issues from github into a pickle file.
+"""
 import sys
 import argparse
-import pprint
-import re
-import os
 import time
 from pickle import dump
 
 from github import Github
+
 
 def main():
     p = argparse.ArgumentParser()

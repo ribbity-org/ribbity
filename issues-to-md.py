@@ -1,14 +1,13 @@
 #! /usr/bin/env python
+"""
+Convert an issues dump file (from dump-issues.py) into a mkdocs site.
+"""
 import sys
 import argparse
-import pprint
 import re
-import os
-import time
 from pickle import load
 import yaml
 
-from github import Github
 
 def convert_issue_to_filename(number, title):
     title = re.sub('[^A-Za-z0-9. ]+', '', title)
@@ -18,7 +17,8 @@ def convert_issue_to_filename(number, title):
 
 
 mkdocs_yml = """\
-site_name: My Docs
+site_name: sourmash examples
+site_url: https://ctb.github.io/ribbity/
 
 nav:
 {nav}
