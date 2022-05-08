@@ -1,7 +1,8 @@
 rule all:
     input:
         "sourmash-examples.dmp",
-        "mkdocs.yml"
+        "mkdocs.yml",
+        "docs/index.md"
 
 rule dump_issues:
     input:
@@ -18,7 +19,7 @@ rule make_markdown:
         script = "issues-to-md.py"
     output:
         "mkdocs.yml",
-        "docs/examples.md"
+        "docs/index.md"
     shell: """
         ./issues-to-md.py {input.dmp}
     """

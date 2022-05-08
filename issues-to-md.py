@@ -71,8 +71,8 @@ def main():
     ### make examples.md
 
     issues_list.sort(key=lambda x: x['n'])
-    with open('docs/examples.md', 'wt') as fp:
-        fp.write("# All examples")
+    with open('docs/index.md', 'wt') as fp:
+        fp.write("# Welcome to sourmash-examples!")
         for issue_d in issues_list:
             fp.write("""
 
