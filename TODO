@@ -2,8 +2,11 @@ sooner:
 - start parsing tags and doing things with them
 - make config file
 
+explore:
+- images?
+
 eventual:
-- use jinja2 templating
+- use jinja2 templating for rewriting
 
 refinements -
 - link to users with @
