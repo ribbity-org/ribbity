@@ -1,1 +1,14 @@
 site_name: My Docs
+
+nav:
+- Home: index.md
+- Examples:
+  - 'Example 1: downloading, sketching, and searching a collection of FASTA files': 1-downloading-sketching-and-searching-a-collection-of-FASTA-files.md
+  - 'Example 2: creating and using an LCA database for taxonomic analysis': 2-creating-and-using-an-LCA-database-for-taxonomic-analysis.md
+  - 'Example 3: using `sourmash tax` to classify a metagenome': 3-using-sourmash-tax-to-classify-a-metagenome.md
+  - 'Example 4: using picklists and manifests to work with a small subset of a large database': 4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database.md
+  - 'Example 5: searching collection manifests directly': 5-searching-collection-manifests-directly.md
+  - 'Example 6: create a conda environment with the latest version of sourmash': 6-create-a-conda-environment-with-the-latest-version-of-sourmash.md
+  - 'Example 7: using `genome_updater.sh` and `sketch fromfile` to build a custom database': 7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database.md
+
+
