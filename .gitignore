@@ -3,3 +3,4 @@ docs/*.md
 .snakemake
 site
 sourmash-examples.dmp
+mkdocs.yml

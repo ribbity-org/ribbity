@@ -1,3 +1,9 @@
-fix github links between issues
-start parsing tags
-make configurable :)
+sooner:
+- start parsing tags and doing things with them
+- make config file
+
+eventual:
+- use jinja2 templating
+
+refinements -
+- link to users with @

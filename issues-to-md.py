@@ -16,6 +16,33 @@ def convert_issue_to_filename(number, title):
     return filename
 
 
+def rewrite_internal_links(body, issues_list):
+    url = re.escape('https://github.com/sourmash-bio/sourmash-examples/issues/')
+    pattern = f"{url}(\\d+)"
+    print('zzz', pattern)
+
+    def get_issue(num):
+        num = int(num)
+        for x in issues_list:
+            if x['n'] == num:
+                return x
+
+        assert 0
+
+    # find and rewrite all internal links:
+    m = re.search(pattern, body)
+    while m:
+        match_num = m.groups()[0]
+        
+        match_issue = get_issue(match_num)
+        link = "[{output_title}]({output_filename})".format(**match_issue)
+        print(link)
+        body = body[:m.start()] + link + body[m.end():]
+        m = re.search(pattern, body)
+
+    return body
+
+
 mkdocs_yml = """\
 site_name: sourmash examples
 site_url: https://ctb.github.io/ribbity/
@@ -38,13 +65,17 @@ def main():
     for issue_d in issues_list:
         number, title, body = issue_d['n'], issue_d['title'], issue_d['body']
         filename = convert_issue_to_filename(number, title)
+        issue_d['output_filename'] = filename
+        issue_d['output_title'] = f"Example {number}: {title}"
+
+    for issue_d in issues_list:
+        filename = issue_d['output_filename']
+        body = rewrite_internal_links(issue_d['body'], issues_list)
         with open("docs/" + filename, "wt") as fp:
-            fp.write(f'# Example {number}: {title}')
+            fp.write('# {output_title}'.format(**issue_d))
             fp.write("\n\n")
             fp.write(body)
         print(f'wrote to {filename}')
-
-        issue_d['output_filename'] = filename
 
     ### make mkdocs.yml
 
