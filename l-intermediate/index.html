@@ -6,9 +6,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         
         
-        <link rel="canonical" href="https://ctb.github.io/ribbity/1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">
+        <link rel="canonical" href="https://ctb.github.io/ribbity/l-intermediate/">
         <link rel="shortcut icon" href="../img/favicon.ico">
-        <title>Example 1: downloading, sketching, and searching a collection of FASTA files - sourmash examples</title>
+        <title>intermediate - sourmash examples</title>
         <link href="../css/bootstrap.min.css" rel="stylesheet">
         <link href="../css/font-awesome.min.css" rel="stylesheet">
         <link href="../css/base.css" rel="stylesheet">
@@ -36,12 +36,12 @@
                             <li class="navitem">
                                 <a href=".." class="nav-link">Home</a>
                             </li>
-                            <li class="dropdown active">
+                            <li class="dropdown">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Examples <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
 <li>
-    <a href="./" class="dropdown-item active">Example 1: downloading, sketching, and searching a collection of FASTA files</a>
+    <a href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/" class="dropdown-item">Example 1: downloading, sketching, and searching a collection of FASTA files</a>
 </li>
                                     
 <li>
@@ -69,7 +69,7 @@
 </li>
                                 </ul>
                             </li>
-                            <li class="dropdown">
+                            <li class="dropdown active">
                                 <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Labels <b class="caret"></b></a>
                                 <ul class="dropdown-menu">
                                     
@@ -94,7 +94,7 @@
 </li>
                                     
 <li>
-    <a href="../l-intermediate/" class="dropdown-item">intermediate</a>
+    <a href="./" class="dropdown-item active">intermediate</a>
 </li>
                                     
 <li>
@@ -131,12 +131,12 @@
                             </a>
                         </li>
                             <li class="nav-item">
-                                <a rel="prev" href=".." class="nav-link">
+                                <a rel="prev" href="../l-gtdb-rs207/" class="nav-link">
                                     <i class="fa fa-arrow-left"></i> Previous
                                 </a>
                             </li>
                             <li class="nav-item">
-                                <a rel="next" href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/" class="nav-link">
+                                <a rel="next" href="../l-manifests/" class="nav-link">
                                     Next <i class="fa fa-arrow-right"></i>
                                 </a>
                             </li>
@@ -158,7 +158,7 @@
     <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
         <ul class="nav flex-column">
             
-            <li class="nav-item" data-level="1"><a href="#example-1-downloading-sketching-and-searching-a-collection-of-fasta-files" class="nav-link">Example 1: downloading, sketching, and searching a collection of FASTA files</a>
+            <li class="nav-item" data-level="1"><a href="#intermediate" class="nav-link">intermediate</a>
               <ul class="nav flex-column">
               </ul>
             </li>
@@ -167,28 +167,8 @@
 </div></div>
                     <div class="col-md-9" role="main">
 
-<h1 id="example-1-downloading-sketching-and-searching-a-collection-of-fasta-files">Example 1: downloading, sketching, and searching a collection of FASTA files</h1>
-<p>Download 64 genomes from <a href="https://www.biorxiv.org/content/10.1101/155358v3">Awad et al., 2017</a>:</p>
-<pre><code class="language-shell">curl -L https://osf.io/download/vbhy5 -o podar-ref.tar.gz
-tar xzf podar-ref.tar.gz
-</code></pre>
-<p>Sketch them all in DNA space using default parameters, using GNU parallel per https://github.com/sourmash-bio/sourmash/issues/1796:</p>
-<pre><code class="language-shell">parallel -j 8 sourmash sketch dna {} -o {}.sig --name-from-first ::: $(ls *.fa)
-</code></pre>
-<p>Build a search database from all the signature files for k=31:</p>
-<pre><code class="language-shell">sourmash sig cat *.sig -k 31 -o podar-ref.zip
-</code></pre>
-<p>Search the database with one of the Shewanella genomes:</p>
-<pre><code class="language-shell">sourmash search 63.fa.sig podar-ref.zip
-</code></pre>
-<p>and you should see:</p>
-<pre><code>similarity   match
-----------   -----
-similarity   match
-----------   -----
-100.0%       NC_011663.1 Shewanella baltica OS223, complete genome
- 32.1%       NC_009665.1 Shewanella baltica OS185, complete genome
-</code></pre></div>
+<h1 id="intermediate">intermediate</h1>
+<p><a href="../4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database/">Example 4 - using picklists and manifests to work with a small subset of a large database</a></p></div>
             </div>
         </div>
 
