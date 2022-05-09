@@ -25,9 +25,12 @@ def main():
         if n and n % 3:
             time.sleep(1)
 
+        labels = [ label.name for label in issue.get_labels() ]
+
         issues_list.append(dict(n=issue.number,
                                 title=issue.title,
-                                body=issue.body))
+                                body=issue.body,
+                                labels=labels))
 
     print(f'saving to {args.output}')
     with open(args.output, 'wb') as fp:

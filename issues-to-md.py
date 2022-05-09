@@ -7,6 +7,7 @@ import argparse
 import re
 from pickle import load
 import yaml
+from collections import defaultdict
 
 
 def convert_issue_to_filename(number, title):
@@ -19,7 +20,6 @@ def convert_issue_to_filename(number, title):
 def rewrite_internal_links(body, issues_list):
     url = re.escape('https://github.com/sourmash-bio/sourmash-examples/issues/')
     pattern = f"{url}(\\d+)"
-    print('zzz', pattern)
 
     def get_issue(num):
         num = int(num)
@@ -36,7 +36,6 @@ def rewrite_internal_links(body, issues_list):
         
         match_issue = get_issue(match_num)
         link = "[{output_title}]({output_filename})".format(**match_issue)
-        print(link)
         body = body[:m.start()] + link + body[m.end():]
         m = re.search(pattern, body)
 
@@ -62,11 +61,18 @@ def main():
 
     print(f"loaded {len(issues_list)} issues from '{args.issues_dmp}'")
 
+    issues_by_number = {}
+    labels_to_issue = defaultdict(list)
+
     for issue_d in issues_list:
         number, title, body = issue_d['n'], issue_d['title'], issue_d['body']
         filename = convert_issue_to_filename(number, title)
         issue_d['output_filename'] = filename
         issue_d['output_title'] = f"Example {number}: {title}"
+        issues_by_number[number] = issue_d
+
+        for label in issue_d['labels']:
+            labels_to_issue[label].append(issue_d)
 
     for issue_d in issues_list:
         filename = issue_d['output_filename']
@@ -90,9 +96,26 @@ def main():
 
         all_pages.append(d)
 
+    all_labels = []
+    for label, issues_xx in sorted(labels_to_issue.items()):
+        label_filename = f'l-{label}.md'
+        with open('docs/' + label_filename, "wt") as fp:
+            print(f"# {label}", file=fp)
+            for issue_d in issues_xx:
+                fp.write("""
+
+[Example {n} - {title}]({output_filename})
+            
+""".format(**issue_d))
+
+        d = {}
+        d[label] = label_filename
+        all_labels.append(d)
+
     nav_contents = []
     nav_contents.append(dict(Home='index.md'))
     nav_contents.append(dict(Examples=all_pages))
+    nav_contents.append(dict(Labels=all_labels))
 
     with open('mkdocs.yml', 'wt') as fp:
         print(mkdocs_yml.format(nav=yaml.safe_dump(nav_contents)), file=fp)

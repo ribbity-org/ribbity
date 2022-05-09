@@ -4,6 +4,8 @@ sooner:
 
 explore:
 - images?
+- comments? link directly, and/or link count
+- provide tools for reverse linking into external md documents (e.g. sourmash docs)
 
 eventual:
 - use jinja2 templating for rewriting
