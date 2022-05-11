@@ -116,6 +116,8 @@ def main():
     nav_contents.append(dict(Home='index.md'))
     nav_contents.append(dict(Examples=all_examples))
     nav_contents.append(dict(Categories=all_labels))
+    nav_contents.append({'All examples': 'examples.md'})
+    nav_contents.append({'All categories': 'labels.md'})
 
     with open('mkdocs.yml', 'wt') as fp:
         print(mkdocs_yml.format(nav=yaml.safe_dump(nav_contents)), file=fp)
