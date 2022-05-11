@@ -130,16 +130,15 @@ def main():
 # Welcome to sourmash-examples!
 
 This is a collection of examples and recipes for [the sourmash
-software](https://sourmash.readthedocs.io/), for genomic and
+software](https://sourmash.readthedocs.io/), for fast genomic and
 metagenomic sequencing data analysis.
 
-sourmash can quickly search
-large databases of genomes for matches to query genomes and
-metagenomes; see [our list of available
+sourmash can quickly search genomes and metagenomes for matches; see
+[our list of available search
 databases](https://sourmash.readthedocs.io/en/latest/databases.html).
 
-sourmash also includes taxonomic exploration and classification
-routines for genome and metagenome analysis with either NCBI and
+sourmash also supports taxonomic exploration and classification
+for genomes and metagenomes with the NCBI and
 [GTDB](https://gtdb.ecogenomic.org/) taxonomies.
 
 The paper [Large-scale sequence comparisons with sourmash (Pierce et
