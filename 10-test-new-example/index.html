@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/favicon.ico">
-    <title>Example: install sourmash with pip or with conda &mdash; sourmash examples</title>
+    <title>Example: test new example &mdash; sourmash examples</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -41,15 +41,14 @@
                     <li class="toctree-l1"><a class="nav-item" href="..">Home</a></li>
                     <li class="toctree-l1"><button class="section nav-item">Examples</button>
 <ul class="subnav">
-    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: install sourmash with pip or with conda</a>
-<ul class="subnav">
-<li class="toctree-l3"><a class="nav-item toc" href="#installing-sourmash-on-mac-os-or-linux">Installing sourmash on Mac OS or Linux</a></li>
-<li class="toctree-l3"><a class="nav-item toc" href="#installing-sourmash-on-windows">Installing sourmash on Windows</a></li>
-</ul></li>
+    <li class="toctree-l2"><a class="nav-item" href="../9-install-sourmash/">Example: install sourmash</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Example: creating a conda environment with the latest version of sourmash</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Example: creating and using an LCA database for taxonomic analysis</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading, sketching, and searching a collection of FASTA files</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../5-searching-collection-manifests-directly/">Example: searching collection manifests directly</a></li>
+    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: test new example</a><a class="nav-item current" href="./">Example: test new example</a>
+<ul class="subnav">
+</ul></li>
     <li class="toctree-l2"><a class="nav-item" href="../7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/">Example: using `genome_updater.sh` and `sketch fromfile` to build a custom database</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../3-using-sourmash-tax-to-classify-a-metagenome/">Example: using `sourmash tax` to classify a metagenome</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database/">Example: using picklists and manifests to work with a small subset of a large database</a></li>
@@ -74,8 +73,8 @@
                 </ul>
             </nav>
             <div class="repo">
-    <div class="previous"><a href="..">&laquo; Previous</a></div>
-    <div class="next"><a href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Next &raquo;</a></div>
+    <div class="previous"><a href="../5-searching-collection-manifests-directly/">&laquo; Previous</a></div>
+    <div class="next"><a href="../7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/">Next &raquo;</a></div>
 </div>
         </aside>
         <div id="spacer"><button class="arrow"></button></div>
@@ -90,31 +89,22 @@
     <li>Examples</li>
 </ul>
 </nav>
-                <div id="content"><h1 id="example-install-sourmash-with-pip-or-with-conda">Example: install sourmash with pip or with conda</h1>
-<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/9">sourmash-bio/sourmash-examples#9</a></em></p>
+                <div id="content"><h1 id="example-test-new-example">Example: test new example</h1>
+<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/10">sourmash-bio/sourmash-examples#10</a></em></p>
 <hr />
 <!--
+# yaml config options below.
 ---
-frontpage: True
-priority: 1
+frontpage: False # should it show up on front page?
+priority: 999 # default priority 999 => in with all the rest :). 1 pushes it to top, etc.
 ---
 -->
 
-<h2 id="installing-sourmash-on-mac-os-or-linux">Installing sourmash on Mac OS or Linux</h2>
-<p>To install sourmash with pip, a common Python installer, run:</p>
-<pre><code>pip install sourmash
-</code></pre>
-<p>See the <a href="https://packaging.python.org/en/latest/tutorials/installing-packages/">official Python docs for installing packages for details.</a></p>
-<p>To install sourmash with <a href="https://bioconda.github.io/user/install.html">bioconda</a>, run:</p>
-<pre><code>conda install sourmash
-</code></pre>
-<p>You'll need to have the bioconda and conda-forge channels configured in your conda install; see <a href="https://bioconda.github.io/user/install.html#set-up-channels">the bioconda documentation</a>.</p>
-<h2 id="installing-sourmash-on-windows">Installing sourmash on Windows</h2>
-<p>We do not yet officially support Windows, but sourmash can be installed on Windows. Visit <a href="https://github.com/sourmash-bio/sourmash/issues/1923">the windows install issue</a> to see the current status!</p></div>
+<h1 id="this-is-a-test">this is a test</h1></div>
                 <footer>
     <div class="footer-buttons">
-        <div class="previous"><a href=".." title="Home"><span>Previous</span></a></div>
-        <div class="next"><a href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/" title="Example: creating a conda environment with the latest version of sourmash"><span>Next</span></a></div>
+        <div class="previous"><a href="../5-searching-collection-manifests-directly/" title="Example: searching collection manifests directly"><span>Previous</span></a></div>
+        <div class="next"><a href="../7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/" title="Example: using `genome_updater.sh` and `sketch fromfile` to build a custom database"><span>Next</span></a></div>
     </div>
     <div class="footer-note">
         <p>

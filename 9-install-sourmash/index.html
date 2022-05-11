@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/favicon.ico">
-    <title>working with FASTA files &mdash; sourmash examples</title>
+    <title>Example: install sourmash &mdash; sourmash examples</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -41,7 +41,11 @@
                     <li class="toctree-l1"><a class="nav-item" href="..">Home</a></li>
                     <li class="toctree-l1"><button class="section nav-item">Examples</button>
 <ul class="subnav">
-    <li class="toctree-l2"><a class="nav-item" href="../9-install-sourmash/">Example: install sourmash</a></li>
+    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: install sourmash</a>
+<ul class="subnav">
+<li class="toctree-l3"><a class="nav-item toc" href="#installing-sourmash-on-mac-os-or-linux">Installing sourmash on Mac OS or Linux</a></li>
+<li class="toctree-l3"><a class="nav-item toc" href="#installing-sourmash-on-windows">Installing sourmash on Windows</a></li>
+</ul></li>
     <li class="toctree-l2"><a class="nav-item" href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Example: creating a conda environment with the latest version of sourmash</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Example: creating and using an LCA database for taxonomic analysis</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading, sketching, and searching a collection of FASTA files</a></li>
@@ -66,14 +70,13 @@
     <li class="toctree-l2"><a class="nav-item" href="../l-sourmash-v4.0/">examples using sourmash v4.x</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-intermediate/">intermediate examples</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-intro/">introductory examples</a></li>
-    <li class="toctree-l2 current"><a class="nav-item current" href="./">working with FASTA files</a>
-<ul class="subnav">
-</ul></li>
+    <li class="toctree-l2"><a class="nav-item" href="../l-fasta/">working with FASTA files</a></li>
 </ul></li>
                 </ul>
             </nav>
             <div class="repo">
-    <div class="previous"><a href="../l-intro/">&laquo; Previous</a></div>
+    <div class="previous"><a href="..">&laquo; Previous</a></div>
+    <div class="next"><a href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Next &raquo;</a></div>
 </div>
         </aside>
         <div id="spacer"><button class="arrow"></button></div>
@@ -85,14 +88,34 @@
             <div id="main">
                 <nav class="breadcrumbs">
 <ul>
-    <li>Categories</li>
+    <li>Examples</li>
 </ul>
 </nav>
-                <div id="content"><h1 id="working-with-fasta-files">working with FASTA files</h1>
-<p><a href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading, sketching, and searching a collection of FASTA files</a></p></div>
+                <div id="content"><h1 id="example-install-sourmash">Example: install sourmash</h1>
+<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/9">sourmash-bio/sourmash-examples#9</a></em></p>
+<hr />
+<!--
+---
+frontpage: True
+priority: 1
+---
+-->
+
+<h2 id="installing-sourmash-on-mac-os-or-linux">Installing sourmash on Mac OS or Linux</h2>
+<p>To install sourmash with pip, a common Python installer, run:</p>
+<pre><code>pip install sourmash
+</code></pre>
+<p>See the <a href="https://packaging.python.org/en/latest/tutorials/installing-packages/">official Python docs for installing packages for details.</a></p>
+<p>To install sourmash with <a href="https://bioconda.github.io/user/install.html">bioconda</a>, run:</p>
+<pre><code>conda install sourmash
+</code></pre>
+<p>You'll need to have the bioconda and conda-forge channels configured in your conda install; see <a href="https://bioconda.github.io/user/install.html#set-up-channels">the bioconda documentation</a>.</p>
+<h2 id="installing-sourmash-on-windows">Installing sourmash on Windows</h2>
+<p>We do not yet officially support Windows, but sourmash can be installed on Windows. Visit <a href="https://github.com/sourmash-bio/sourmash/issues/1923">the windows install issue</a> to see the current status!</p></div>
                 <footer>
     <div class="footer-buttons">
-        <div class="previous"><a href="../l-intro/" title="introductory examples"><span>Previous</span></a></div>
+        <div class="previous"><a href=".." title="Home"><span>Previous</span></a></div>
+        <div class="next"><a href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/" title="Example: creating a conda environment with the latest version of sourmash"><span>Next</span></a></div>
     </div>
     <div class="footer-note">
         <p>

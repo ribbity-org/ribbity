@@ -11,6 +11,11 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
+         <loc>https://ctb.github.io/ribbity/10-test-new-example/</loc>
+         <lastmod>2022-05-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
          <loc>https://ctb.github.io/ribbity/2-creating-and-using-an-LCA-database-for-taxonomic-analysis/</loc>
          <lastmod>2022-05-11</lastmod>
          <changefreq>daily</changefreq>
@@ -41,7 +46,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://ctb.github.io/ribbity/9-install-sourmash-with-pip-or-with-conda/</loc>
+         <loc>https://ctb.github.io/ribbity/9-install-sourmash/</loc>
          <lastmod>2022-05-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
