@@ -1,6 +1,10 @@
 from dataclasses import dataclass
 import re
 import yaml
+from functools import total_ordering
+
+
+DEFAULT_ISSUE_PRIORITY=999
 
 
 @dataclass(eq=True, frozen=True)
@@ -18,6 +22,7 @@ class Label:
         return f"l-{self.name}.md"
 
 @dataclass(eq=True, frozen=True)
+@total_ordering
 class Issue:
     number: int
     title: str
@@ -39,13 +44,24 @@ class Issue:
     def config(self):
         body = self.body
         if '---' not in body:       # maybe use regexp ^---$?
-            return []
+            return {}
 
         start = body.find('---')
         assert start >= 0
         end = body.find('---', start + 3)
         if end == -1:
-            return []
+            return {}
 
         yaml_text = body[start:end]
-        return yaml.safe_load(yaml_text)
+        x = yaml.safe_load(yaml_text)
+        if x:
+            return dict(x)
+        return {}
+
+    @property
+    def priority(self):
+        return self.config.get('priority', DEFAULT_ISSUE_PRIORITY)
+
+    def __lt__(self, other):
+        return (self.priority, self.title.lower()) < \
+                (other.priority, other.title.lower())

@@ -47,16 +47,17 @@ def main():
 
     print(f"loaded {len(issues_list)} issues from '{args.issues_dmp}'")
 
-    labels_to_issue = defaultdict(list)
+    labels_to_issues = defaultdict(list)
     issues_by_number = {}
 
     # organize issues and labels
     for issue in issues_list:
         issues_by_number[issue.number] = issue
-        print(issue.config)
+        if issue.config:
+            print(issue.config)
 
         for label in issue.labels:
-            labels_to_issue[label].append(issue)
+            labels_to_issues[label].append(issue)
 
     # now, actually do output.
     for issue in issues_list:
@@ -77,21 +78,22 @@ def main():
 
     ### make mkdocs.yml
 
-    all_pages = []
-    issues_list.sort(key = lambda x: x.number)
+    # build a list of all pages
+    all_examples = []
+    issues_list.sort()
     for issue in issues_list:
         filename = issue.output_filename
         title = issue.output_title
-        all_pages.append(dict(title=filename))
+        all_examples.append(dict(title=filename))
 
+    # build a list of all labels
     all_labels = []
-    for label, issues_for_label in labels_to_issue.items():
-
+    for label, issues_for_label in labels_to_issues.items():
         label_filename = label.output_filename
         with open('docs/' + label_filename, "wt") as fp:
             print(f"# {label.output_name}", file=fp)
-            for issue in issues_for_label:
-                fp.write(f"""
+            for issue in sorted(issues_for_label):
+                fp.write(f"""\
 
 [{issue.output_title}]({issue.output_filename})
             
@@ -106,7 +108,7 @@ def main():
 
     nav_contents = []
     nav_contents.append(dict(Home='index.md'))
-    nav_contents.append(dict(Examples=all_pages))
+    nav_contents.append(dict(Examples=all_examples))
     nav_contents.append(dict(Categories=all_labels))
 
     with open('mkdocs.yml', 'wt') as fp:
@@ -114,19 +116,61 @@ def main():
 
     print("built mkdocs.yml")
 
+    ### make index.md
+
+    issues_list.sort()
+    with open('docs/index.md', 'wt') as fp:
+        print(f"""\
+# Welcome to sourmash-examples!
+
+[All examples](examples.md) | [All categories](labels.md)
+
+## Start here!
+
+""", file=fp)
+        for issue in issues_list:
+            if issue.config.get('frontpage'):
+                print(f"""
+[Example - {issue.title}]({issue.output_filename})
+""", file=fp)
+
+    print("built index.md")
+
     ### make examples.md
 
-    issues_list.sort(key=lambda x: x.number)
-    with open('docs/index.md', 'wt') as fp:
-        fp.write("# Welcome to sourmash-examples!")
-        for issue in issues_list:
-            fp.write(f"""
+    issues_list.sort()
+    with open('docs/examples.md', 'wt') as fp:
+        print("""\
+# All examples
 
+*Go to: [All categories](labels.md)*
+
+---
+""", file=fp)
+        for issue in issues_list:
+            print(f"""
 [Example - {issue.title}]({issue.output_filename})
-            
-""")
+""", file=fp)
 
     print("built examples.md")
+
+    ### make labels.md
+
+    with open('docs/labels.md', 'wt') as fp:
+        print("""\
+# All categories
+
+*Go to: [All examples](examples.md)*
+
+---
+
+""", file=fp)
+        for label in labels_to_issues:
+            print(f"""
+[{label.description} - {len(labels_to_issues[label])} examples]({label.output_filename})
+""", file=fp)
+
+    print("built labels.md")
 
     return 0
 
