@@ -10,14 +10,7 @@ import yaml
 from collections import defaultdict
 
 
-def convert_issue_to_filename(issue):
-    title = re.sub('[^A-Za-z0-9. ]+', '', issue.title)
-    title = title.replace(' ', '-')
-    filename = f"{issue.number}-{title}.md"
-    return filename
-
-
-def rewrite_internal_links(body, output_info):
+def rewrite_internal_links(body, issues_by_number):
     url = re.escape('https://github.com/sourmash-bio/sourmash-examples/issues/')
     pattern = f"{url}(\\d+)"
 
@@ -26,9 +19,9 @@ def rewrite_internal_links(body, output_info):
     while m:
         match_num = m.groups()[0]
         match_num = int(match_num)
+        match_issue = issues_by_number[match_num]
         
-        match_info = output_info[match_num]
-        link = "[{output_title}]({output_filename})".format(**match_info)
+        link = f"[{match_issue.output_title}]({match_issue.output_filename})"
         body = body[:m.start()] + link + body[m.end():]
         m = re.search(pattern, body)
 
@@ -44,6 +37,22 @@ nav:
 """
 
 
+def extract_yaml_from_issue_body(body):
+    if '---' not in body:       # maybe use regexp ^---$?
+        return []
+
+    start = body.find('---')
+    assert start >= 0
+    end = body.find('---', start + 3)
+    if end == -1:
+        return
+
+    yaml_text = body[start:end]
+    print('xxx', yaml_text)
+    x = yaml.safe_load(yaml_text)
+    print(x)
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('issues_dmp')
@@ -56,15 +65,12 @@ def main():
 
     labels_to_issue = defaultdict(list)
     labels_by_name = {}
-    output_info = defaultdict(dict)
+    issues_by_number = {}
 
     # build output info, rewrite title, organize issues.
     for issue in issues_list:
-        output_filename = convert_issue_to_filename(issue)
-        output_title = f"Example {issue.number}: {issue.title}"
-
-        d = dict(output_filename=output_filename, output_title=output_title)
-        output_info[issue.number] = d
+        issues_by_number[issue.number] = issue
+        extract_yaml_from_issue_body(issue.body)
 
         for label in issue.labels:
             labels_to_issue[label.name].append(issue)
@@ -72,12 +78,11 @@ def main():
 
     # now, actually do output.
     for issue in issues_list:
-        filename = output_info[issue.number]['output_filename']
-        output_title = output_info[issue.number]['output_title']
+        filename = issue.output_filename
 
-        body = rewrite_internal_links(issue.body, output_info)
+        body = rewrite_internal_links(issue.body, issues_by_number)
         with open("docs/" + filename, "wt") as fp:
-            fp.write('# {output_title}'.format(output_title=output_title))
+            fp.write(f'# {issue.output_title}')
             fp.write("\n\n")
             fp.write(body)
         print(f'wrote to {filename}')
@@ -87,8 +92,8 @@ def main():
     all_pages = []
     issues_list.sort(key = lambda x: x.number)
     for issue in issues_list:
-        filename = output_info[issue.number]['output_filename']
-        title = f"Example {issue.number}: {issue.title}"
+        filename = issue.output_filename
+        title = issue.output_title
 
         d = {}
         d[title] = filename
@@ -105,7 +110,7 @@ def main():
             for issue in issues_xx:
                 fp.write(f"""
 
-[Example {issue.number} - {issue.title}]({output_info[issue.number]['output_filename']})
+[Example - {issue.title}]({issue.output_filename})
             
 """)
 
@@ -119,7 +124,7 @@ def main():
     nav_contents = []
     nav_contents.append(dict(Home='index.md'))
     nav_contents.append(dict(Examples=all_pages))
-    nav_contents.append(dict(Labels=all_labels))
+    nav_contents.append(dict(Categories=all_labels))
 
     with open('mkdocs.yml', 'wt') as fp:
         print(mkdocs_yml.format(nav=yaml.safe_dump(nav_contents)), file=fp)
@@ -132,10 +137,9 @@ def main():
     with open('docs/index.md', 'wt') as fp:
         fp.write("# Welcome to sourmash-examples!")
         for issue in issues_list:
-            output_filename = output_info[issue.number]['output_filename']
             fp.write(f"""
 
-[Example {issue.number} - {issue.title}]({output_filename})
+[Example - {issue.title}]({issue.output_filename})
             
 """)
 
