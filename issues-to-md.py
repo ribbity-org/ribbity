@@ -10,32 +10,25 @@ import yaml
 from collections import defaultdict
 
 
-def convert_issue_to_filename(number, title):
-    title = re.sub('[^A-Za-z0-9. ]+', '', title)
+def convert_issue_to_filename(issue):
+    title = re.sub('[^A-Za-z0-9. ]+', '', issue.title)
     title = title.replace(' ', '-')
-    filename = f"{number}-{title}.md"
+    filename = f"{issue.number}-{title}.md"
     return filename
 
 
-def rewrite_internal_links(body, issues_list):
+def rewrite_internal_links(body, output_info):
     url = re.escape('https://github.com/sourmash-bio/sourmash-examples/issues/')
     pattern = f"{url}(\\d+)"
-
-    def get_issue(num):
-        num = int(num)
-        for x in issues_list:
-            if x['n'] == num:
-                return x
-
-        assert 0
 
     # find and rewrite all internal links:
     m = re.search(pattern, body)
     while m:
         match_num = m.groups()[0]
+        match_num = int(match_num)
         
-        match_issue = get_issue(match_num)
-        link = "[{output_title}]({output_filename})".format(**match_issue)
+        match_info = output_info[match_num]
+        link = "[{output_title}]({output_filename})".format(**match_info)
         body = body[:m.start()] + link + body[m.end():]
         m = re.search(pattern, body)
 
@@ -61,24 +54,30 @@ def main():
 
     print(f"loaded {len(issues_list)} issues from '{args.issues_dmp}'")
 
-    issues_by_number = {}
     labels_to_issue = defaultdict(list)
+    labels_by_name = {}
+    output_info = defaultdict(dict)
 
-    for issue_d in issues_list:
-        number, title, body = issue_d['n'], issue_d['title'], issue_d['body']
-        filename = convert_issue_to_filename(number, title)
-        issue_d['output_filename'] = filename
-        issue_d['output_title'] = f"Example {number}: {title}"
-        issues_by_number[number] = issue_d
+    # build output info, rewrite title, organize issues.
+    for issue in issues_list:
+        output_filename = convert_issue_to_filename(issue)
+        output_title = f"Example {issue.number}: {issue.title}"
 
-        for label in issue_d['labels']:
-            labels_to_issue[label].append(issue_d)
+        d = dict(output_filename=output_filename, output_title=output_title)
+        output_info[issue.number] = d
 
-    for issue_d in issues_list:
-        filename = issue_d['output_filename']
-        body = rewrite_internal_links(issue_d['body'], issues_list)
+        for label in issue.labels:
+            labels_to_issue[label.name].append(issue)
+            labels_by_name[label.name] = label # duplicative but whatevs
+
+    # now, actually do output.
+    for issue in issues_list:
+        filename = output_info[issue.number]['output_filename']
+        output_title = output_info[issue.number]['output_title']
+
+        body = rewrite_internal_links(issue.body, output_info)
         with open("docs/" + filename, "wt") as fp:
-            fp.write('# {output_title}'.format(**issue_d))
+            fp.write('# {output_title}'.format(output_title=output_title))
             fp.write("\n\n")
             fp.write(body)
         print(f'wrote to {filename}')
@@ -86,10 +85,10 @@ def main():
     ### make mkdocs.yml
 
     all_pages = []
-    issues_list.sort(key = lambda x: x['n'])
-    for issue_d in issues_list:
-        filename = issue_d['output_filename']
-        title = "Example {n}: {title}".format(**issue_d)
+    issues_list.sort(key = lambda x: x.number)
+    for issue in issues_list:
+        filename = output_info[issue.number]['output_filename']
+        title = f"Example {issue.number}: {issue.title}"
 
         d = {}
         d[title] = filename
@@ -97,20 +96,25 @@ def main():
         all_pages.append(d)
 
     all_labels = []
-    for label, issues_xx in sorted(labels_to_issue.items()):
+    for label_name, issues_xx in labels_to_issue.items():
+        label = labels_by_name[label_name]
+
         label_filename = f'l-{label}.md'
         with open('docs/' + label_filename, "wt") as fp:
-            print(f"# {label}", file=fp)
-            for issue_d in issues_xx:
-                fp.write("""
+            print(f"# {label.description or label.name}", file=fp)
+            for issue in issues_xx:
+                fp.write(f"""
 
-[Example {n} - {title}]({output_filename})
+[Example {issue.number} - {issue.title}]({output_info[issue.number]['output_filename']})
             
-""".format(**issue_d))
+""")
 
         d = {}
-        d[label] = label_filename
+        label_title = label.description or label.name
+        d[label_title] = label_filename
         all_labels.append(d)
+
+    all_labels.sort(key = lambda x: list(x.keys())[0])
 
     nav_contents = []
     nav_contents.append(dict(Home='index.md'))
@@ -124,15 +128,16 @@ def main():
 
     ### make examples.md
 
-    issues_list.sort(key=lambda x: x['n'])
+    issues_list.sort(key=lambda x: x.number)
     with open('docs/index.md', 'wt') as fp:
         fp.write("# Welcome to sourmash-examples!")
-        for issue_d in issues_list:
-            fp.write("""
+        for issue in issues_list:
+            output_filename = output_info[issue.number]['output_filename']
+            fp.write(f"""
 
-[Example {n} - {title}]({output_filename})
+[Example {issue.number} - {issue.title}]({output_filename})
             
-""".format(**issue_d))
+""")
 
     print("built examples.md")
 

@@ -8,6 +8,7 @@ import time
 from pickle import dump
 
 from github import Github
+from ribbity import objects
 
 
 def main():
@@ -25,12 +26,17 @@ def main():
         if n and n % 3:
             time.sleep(1)
 
-        labels = [ label.name for label in issue.get_labels() ]
+        labels = []
+        for label in issue.get_labels():
+            label_obj = objects.Label(label.color, label.description,
+                                      label.name)
+            labels.append(label_obj)
 
-        issues_list.append(dict(n=issue.number,
-                                title=issue.title,
-                                body=issue.body,
-                                labels=labels))
+        issue_obj = objects.Issue(issue.number,
+                                  issue.title,
+                                  issue.body,
+                                  labels)
+        issues_list.append(issue_obj)
 
     print(f'saving to {args.output}')
     with open(args.output, 'wb') as fp:

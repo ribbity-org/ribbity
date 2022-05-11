@@ -4,3 +4,4 @@ docs/*.md
 site
 sourmash-examples.dmp
 mkdocs.yml
+__pycache__
