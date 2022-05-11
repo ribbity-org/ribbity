@@ -128,15 +128,30 @@ def main():
         print(f"""\
 # Welcome to sourmash-examples!
 
-This is a collection of examples and recipes for using [the sourmash
-software](sourmash.readthedocs.io/) to analyze genomic and metagenomic
-sequencing data.
+This is a collection of examples and recipes for [the sourmash
+software](https://sourmash.readthedocs.io/), for genomic and
+metagenomic sequencing data analysis.
+
+sourmash can quickly search
+large databases of genomes for matches to query genomes and
+metagenomes; see [our list of available
+databases](https://sourmash.readthedocs.io/en/latest/databases.html).
+
+sourmash also includes taxonomic exploration and classification
+routines for genome and metagenome analysis with either NCBI and
+[GTDB](https://gtdb.ecogenomic.org/) taxonomies.
+
+The paper [Large-scale sequence comparisons with sourmash (Pierce et
+al., 2019)](https://f1000research.com/articles/8-1006) gives an
+overview of what sourmash does and how sourmash works.
 
 Do you have questions or comments? [File an
 issue](https://github.com/sourmash-bio/sourmash/issues) or [come chat
 on gitter](https://gitter.im/sourmash-bio/community)!
 
-[All examples](examples.md) | [All categories](labels.md)
+---
+
+*Go to: [All examples](examples.md) | [All categories](labels.md)*
 
 ## Start here!
 
@@ -144,7 +159,7 @@ on gitter](https://gitter.im/sourmash-bio/community)!
         for issue in issues_list:
             if issue.config.get('frontpage'):
                 print(f"""
-[Example - {issue.title}]({issue.output_filename})
+[Example: {issue.title}]({issue.output_filename})
 """, file=fp)
 
     print("built index.md")
@@ -156,13 +171,13 @@ on gitter](https://gitter.im/sourmash-bio/community)!
         print("""\
 # All examples
 
-*Go to: [All categories](labels.md)*
+*Go to: [Home](index.md) | [All categories](labels.md)*
 
 ---
 """, file=fp)
         for issue in issues_list:
             print(f"""
-[Example - {issue.title}]({issue.output_filename})
+[Example: {issue.title}]({issue.output_filename})
 """, file=fp)
 
     print("built examples.md")
@@ -173,7 +188,7 @@ on gitter](https://gitter.im/sourmash-bio/community)!
         print("""\
 # All categories
 
-*Go to: [All examples](examples.md)*
+*Go to: [Home](index.md) | [All examples](examples.md)*
 
 ---
 
