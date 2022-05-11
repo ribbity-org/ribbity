@@ -21,5 +21,6 @@ rule make_markdown:
         "mkdocs.yml",
         "docs/index.md"
     shell: """
+        rm -f docs/* || true
         ./issues-to-md.py {input.dmp}
     """

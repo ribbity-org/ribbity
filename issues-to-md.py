@@ -87,6 +87,7 @@ def main():
     all_examples = []
     issues_list.sort()
     for issue in issues_list:
+        print(f'... issue #{issue.number}')
         filename = issue.output_filename
         title = issue.output_title
         all_examples.append({ title: filename })
