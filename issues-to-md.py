@@ -37,22 +37,6 @@ nav:
 """
 
 
-def extract_yaml_from_issue_body(body):
-    if '---' not in body:       # maybe use regexp ^---$?
-        return []
-
-    start = body.find('---')
-    assert start >= 0
-    end = body.find('---', start + 3)
-    if end == -1:
-        return
-
-    yaml_text = body[start:end]
-    print('xxx', yaml_text)
-    x = yaml.safe_load(yaml_text)
-    print(x)
-
-
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('issues_dmp')
@@ -70,7 +54,7 @@ def main():
     # build output info, rewrite title, organize issues.
     for issue in issues_list:
         issues_by_number[issue.number] = issue
-        extract_yaml_from_issue_body(issue.body)
+        print(issue.config)
 
         for label in issue.labels:
             labels_to_issue[label.name].append(issue)
