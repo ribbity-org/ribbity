@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/favicon.ico">
-    <title>Example: using `sourmash tax` to classify a metagenome &mdash; sourmash examples</title>
+    <title>introductory examples &mdash; sourmash examples</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -47,9 +47,7 @@
     <li class="toctree-l2"><a class="nav-item" href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading, sketching, and searching a collection of FASTA files</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../5-searching-collection-manifests-directly/">Example: searching collection manifests directly</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/">Example: using `genome_updater.sh` and `sketch fromfile` to build a custom database</a></li>
-    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: using `sourmash tax` to classify a metagenome</a>
-<ul class="subnav">
-</ul></li>
+    <li class="toctree-l2"><a class="nav-item" href="../3-using-sourmash-tax-to-classify-a-metagenome/">Example: using `sourmash tax` to classify a metagenome</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database/">Example: using picklists and manifests to work with a small subset of a large database</a></li>
 </ul></li>
                     <li class="toctree-l1"><button class="section nav-item">Categories</button>
@@ -66,14 +64,16 @@
     <li class="toctree-l2"><a class="nav-item" href="../l-sourmash-v4.4/">examples using sourmash v4.4 functionality</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-sourmash-v4.0/">examples using sourmash v4.x</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-intermediate/">intermediate examples</a></li>
-    <li class="toctree-l2"><a class="nav-item" href="../l-intro/">introductory examples</a></li>
+    <li class="toctree-l2 current"><a class="nav-item current" href="./">introductory examples</a>
+<ul class="subnav">
+</ul></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-fasta/">working with FASTA files</a></li>
 </ul></li>
                 </ul>
             </nav>
             <div class="repo">
-    <div class="previous"><a href="../7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/">&laquo; Previous</a></div>
-    <div class="next"><a href="../4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database/">Next &raquo;</a></div>
+    <div class="previous"><a href="../l-intermediate/">&laquo; Previous</a></div>
+    <div class="next"><a href="../l-fasta/">Next &raquo;</a></div>
 </div>
         </aside>
         <div id="spacer"><button class="arrow"></button></div>
@@ -85,39 +85,15 @@
             <div id="main">
                 <nav class="breadcrumbs">
 <ul>
-    <li>Examples</li>
+    <li>Categories</li>
 </ul>
 </nav>
-                <div id="content"><h1 id="example-using-sourmash-tax-to-classify-a-metagenome">Example: using <code>sourmash tax</code> to classify a metagenome</h1>
-<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/3">sourmash-bio/sourmash-examples#3</a></em></p>
-<hr />
-<p>First, download and sketch 64 genomes from <a href="https://www.biorxiv.org/content/10.1101/155358v3">Awad et al., 2017</a> using the instructions in <a href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading, sketching, and searching a collection of FASTA files</a>. You'll need <code>podar-ref.zip</code>.</p>
-<p>Next, you'll need <a href="https://osf.io/4yhjw/"><code>podar-lineage.csv</code></a> -</p>
-<pre><code class="language-shell">curl -L https://osf.io/4yhjw/download -o podar-lineage.csv
-</code></pre>
-<p>Next we'll make a fake metagenome consisting of a signature created by merging two <em>Shewanella baltica</em> signatures.</p>
-<p>First, extract signatures with <code>Shewanella</code> in the name from <code>podar-ref.zip</code>:</p>
-<pre><code class="language-shell">sourmash sig grep Shewanella podar-ref.zip -o shew-matches.sig
-</code></pre>
-<p>Then, use <code>sourmash sig merge</code> to merge them into one signature:</p>
-<pre><code class="language-shell">sourmash sig merge shew-matches.sig -o shew-merge.sig
-</code></pre>
-<p>This is our fake metagenome that we'll use to demonstrate <code>sourmash tax</code>.</p>
-<p>Now that we've got our fake metagenome, run <code>sourmash gather</code> to find the <a href="https://www.biorxiv.org/content/10.1101/2022.01.11.475838v2">minimum metagenome cover</a>:</p>
-<pre><code class="language-shell">sourmash gather shew-merge.sig podar-ref.zip -o out.csv
-</code></pre>
-<p>and then run <code>sourmash tax metagenome</code> to classify this as a "mixture" using the matching genomes from <code>out.csv</code> and their taxonomy in <code>podar-lineage.csv</code>:</p>
-<pre><code class="language-shell">sourmash tax -g out.csv -t podar-lineage.csv
-</code></pre>
-<p>and you should see:</p>
-<pre><code>,genus,1.000,Bacteria;Proteobacteria;Gammaproteobacteria;Alteromonadales;Shewanellaceae;Shewanella,491c0a81,,1.000,7886000
-,species,1.000,Bacteria;Proteobacteria;Gammaproteobacteria;Alteromonadales;Shewanellaceae;Shewanella;Shewanella baltica,491c0a81,,1.000,7886000
-</code></pre>
-<p>which shows that this is 100% Shewanella, as, well expected :).</p></div>
+                <div id="content"><h1 id="introductory-examples">introductory examples</h1>
+<p><a href="../9-install-sourmash-with-pip-or-with-conda/">Example: install sourmash with pip or with conda</a></p></div>
                 <footer>
     <div class="footer-buttons">
-        <div class="previous"><a href="../7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/" title="Example: using `genome_updater.sh` and `sketch fromfile` to build a custom database"><span>Previous</span></a></div>
-        <div class="next"><a href="../4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database/" title="Example: using picklists and manifests to work with a small subset of a large database"><span>Next</span></a></div>
+        <div class="previous"><a href="../l-intermediate/" title="intermediate examples"><span>Previous</span></a></div>
+        <div class="next"><a href="../l-fasta/" title="working with FASTA files"><span>Next</span></a></div>
     </div>
     <div class="footer-note">
         <p>

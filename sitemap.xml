@@ -41,7 +41,7 @@
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>https://ctb.github.io/ribbity/8-a-test-of-some-yaml-stuff-and-also-eventually-a-closed-issue-test/</loc>
+         <loc>https://ctb.github.io/ribbity/9-install-sourmash-with-pip-or-with-conda/</loc>
          <lastmod>2022-05-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
@@ -77,6 +77,11 @@
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-intermediate/</loc>
+         <lastmod>2022-05-11</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/l-intro/</loc>
          <lastmod>2022-05-11</lastmod>
          <changefreq>daily</changefreq>
     </url>
