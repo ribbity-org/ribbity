@@ -32,6 +32,11 @@ mkdocs_yml = """\
 site_name: sourmash examples
 site_url: https://ctb.github.io/ribbity/
 
+theme:
+  logo: assets/sourmash-logo.png
+  favicon: assets/sourmash.ico
+  name: ivory
+
 nav:
 {nav}
 """
@@ -84,7 +89,7 @@ def main():
     for issue in issues_list:
         filename = issue.output_filename
         title = issue.output_title
-        all_examples.append(dict(title=filename))
+        all_examples.append({ title: filename })
 
     # build a list of all labels
     all_labels = []
@@ -122,6 +127,14 @@ def main():
     with open('docs/index.md', 'wt') as fp:
         print(f"""\
 # Welcome to sourmash-examples!
+
+This is a collection of examples and recipes for using [the sourmash
+software](sourmash.readthedocs.io/) to analyze genomic and metagenomic
+sequencing data.
+
+Do you have questions or comments? [File an
+issue](https://github.com/sourmash-bio/sourmash/issues) or [come chat
+on gitter](https://gitter.im/sourmash-bio/community)!
 
 [All examples](examples.md) | [All categories](labels.md)
 

@@ -1,14 +1,21 @@
 sooner:
-- start parsing tags and doing things with them
+- fix favico
 - make config file
 
 explore:
 - images?
 - comments? link directly, and/or link count
 - provide tools for reverse linking into external md documents (e.g. sourmash docs)
+- default issue/example template
 
 eventual:
 - use jinja2 templating for rewriting
 
 refinements -
 - link to users with @
+
+ARGUMENTS for using github issues:
+- forward and reverse links between issues
+- linking between issues in different repositories
+- robust commenting on issues
+- good auth/moderation/contribution on github
