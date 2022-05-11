@@ -48,17 +48,15 @@ def main():
     print(f"loaded {len(issues_list)} issues from '{args.issues_dmp}'")
 
     labels_to_issue = defaultdict(list)
-    labels_by_name = {}
     issues_by_number = {}
 
-    # build output info, rewrite title, organize issues.
+    # organize issues and labels
     for issue in issues_list:
         issues_by_number[issue.number] = issue
         print(issue.config)
 
         for label in issue.labels:
-            labels_to_issue[label.name].append(issue)
-            labels_by_name[label.name] = label # duplicative but whatevs
+            labels_to_issue[label].append(issue)
 
     # now, actually do output.
     for issue in issues_list:
@@ -66,9 +64,15 @@ def main():
 
         body = rewrite_internal_links(issue.body, issues_by_number)
         with open("docs/" + filename, "wt") as fp:
-            fp.write(f'# {issue.output_title}')
-            fp.write("\n\n")
-            fp.write(body)
+            print(f"""\
+# {issue.output_title}
+
+*[sourmash-bio/sourmash-examples#{issue.number}](https://github.com/sourmash-bio/sourmash-examples/issues/{issue.number})*
+
+---
+
+{body}
+""", file=fp)
         print(f'wrote to {filename}')
 
     ### make mkdocs.yml
@@ -78,23 +82,18 @@ def main():
     for issue in issues_list:
         filename = issue.output_filename
         title = issue.output_title
-
-        d = {}
-        d[title] = filename
-
-        all_pages.append(d)
+        all_pages.append(dict(title=filename))
 
     all_labels = []
-    for label_name, issues_xx in labels_to_issue.items():
-        label = labels_by_name[label_name]
+    for label, issues_for_label in labels_to_issue.items():
 
-        label_filename = f'l-{label}.md'
+        label_filename = label.output_filename
         with open('docs/' + label_filename, "wt") as fp:
-            print(f"# {label.description or label.name}", file=fp)
-            for issue in issues_xx:
+            print(f"# {label.output_name}", file=fp)
+            for issue in issues_for_label:
                 fp.write(f"""
 
-[Example - {issue.title}]({issue.output_filename})
+[{issue.output_title}]({issue.output_filename})
             
 """)
 

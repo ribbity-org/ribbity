@@ -9,6 +9,14 @@ class Label:
     description: str
     name: str
 
+    @property
+    def output_name(self):
+        return self.description or self.name
+
+    @property
+    def output_filename(self):
+        return f"l-{self.name}.md"
+
 @dataclass(eq=True, frozen=True)
 class Issue:
     number: int
@@ -25,7 +33,7 @@ class Issue:
 
     @property
     def output_title(self):
-        return f"Example {self.number}: {self.title}"
+        return f"Example: {self.title}"
 
     @property
     def config(self):
