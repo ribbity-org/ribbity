@@ -89,7 +89,7 @@ def main():
     for issue in issues_list:
         print(f'... issue #{issue.number}')
         filename = issue.output_filename
-        title = issue.output_title
+        title = issue.index_title
         all_examples.append({ title: filename })
 
     # build a list of all labels

@@ -41,6 +41,11 @@ class Issue:
         return f"Example: {self.title}"
 
     @property
+    def index_title(self):
+        title = re.sub('[^A-Za-z0-9._ ]+', '', self.title)
+        return f"Example: {title}"
+
+    @property
     def config(self):
         body = self.body
         if '---' not in body:       # maybe use regexp ^---$?
