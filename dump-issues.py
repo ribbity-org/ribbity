@@ -23,6 +23,7 @@ def main():
 
     issues_list = []
     for n, issue in enumerate(repo.get_issues()):
+        print(f"loading issue {issue.number}...")
         if n and n % 3:
             time.sleep(1)
 
