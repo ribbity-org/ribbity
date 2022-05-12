@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/favicon.ico">
-    <title>Example: creating a conda environment with the latest version of sourmash &mdash; sourmash examples</title>
+    <title>Example: download and search 66000 GTDB genomes with a query genome &mdash; sourmash examples</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -45,12 +45,12 @@
 <ul class="subnav">
     <li class="toctree-l2"><a class="nav-item" href="../9-install-sourmash/">Example: install sourmash</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../11-create-a-signature-by-downloading-and-sketching-a-genome-sequence/">Example: create a signature by downloading and sketching a genome sequence</a></li>
-    <li class="toctree-l2"><a class="nav-item" href="../13-download-and-search-66000-GTDB-genomes-with-a-query-genome/">Example: download and search 66000 GTDB genomes with a query genome</a></li>
-    <li class="toctree-l2"><a class="nav-item" href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">Example: create a metagenome signature from shotgun sequencing reads</a></li>
-    <li class="toctree-l2"><a class="nav-item" href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">Example: analyze a metagenome using 66000 GTDB genomic representatives</a></li>
-    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: creating a conda environment with the latest version of sourmash</a>
+    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: download and search 66000 GTDB genomes with a query genome</a>
 <ul class="subnav">
 </ul></li>
+    <li class="toctree-l2"><a class="nav-item" href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">Example: create a metagenome signature from shotgun sequencing reads</a></li>
+    <li class="toctree-l2"><a class="nav-item" href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">Example: analyze a metagenome using 66000 GTDB genomic representatives</a></li>
+    <li class="toctree-l2"><a class="nav-item" href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Example: creating a conda environment with the latest version of sourmash</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Example: creating and using an LCA database for taxonomic analysis</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading sketching and searching a collection of FASTA files</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../5-searching-collection-manifests-directly/">Example: searching collection manifests directly</a></li>
@@ -82,8 +82,8 @@
                 </ul>
             </nav>
             <div class="repo">
-    <div class="previous"><a href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">&laquo; Previous</a></div>
-    <div class="next"><a href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Next &raquo;</a></div>
+    <div class="previous"><a href="../11-create-a-signature-by-downloading-and-sketching-a-genome-sequence/">&laquo; Previous</a></div>
+    <div class="next"><a href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">Next &raquo;</a></div>
 </div>
         </aside>
         <div id="spacer"><button class="arrow"></button></div>
@@ -98,35 +98,54 @@
     <li>Examples</li>
 </ul>
 </nav>
-                <div id="content"><h1 id="example-creating-a-conda-environment-with-the-latest-version-of-sourmash">Example: creating a conda environment with the latest version of sourmash</h1>
-<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/6">sourmash-bio/sourmash-examples#6</a></em></p>
+                <div id="content"><h1 id="example-download-and-search-66000-gtdb-genomes-with-a-query-genome">Example: download and search 66,000 GTDB genomes with a query genome</h1>
+<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/13">sourmash-bio/sourmash-examples#13</a></em></p>
 <hr />
-<p>Per @bluegenes tested by @jessicalumian. </p>
-<p>Create a file <code>sourmash-latest.yml</code> containing the dependencies, plus a pointer to the latest version of sourmash:</p>
-<pre><code class="language-yaml">channels:
-  - conda-forge
-  - bioconda
-  - defaults
-dependencies:
-  - python=3.9
-  - rust
-  - pip
-  - pip:
-    - git+https://github.com/sourmash-bio/sourmash@latest
+<!--
+# yaml config options below.
+---
+frontpage: True # should it show up on front page?
+priority: 3 # default priority 999 => in with all the rest :). 1 pushes it to top, etc.
+---
+-->
+
+<p>You'll need to build the genome signature file in <a href="../11-create-a-signature-by-downloading-and-sketching-a-genome-sequence/">Example: create a signature by downloading and sketching a genome sequence</a> first.</p>
+<p>Then, download the GTDB genomic representatives database:</p>
+<pre><code class="language-shell">curl -JLO https://osf.io/3a6gn/download
 </code></pre>
-<p>and then run:</p>
-<pre><code class="language-shell">conda env create -n sourmash-latest -f sourmash-latest.yml
+<p>This will create a 1.7 GB file, <code>gtdb-rs207.genomic-reps.dna.k31.zip</code>,  which contains 66,000 genome sketches from the <a href="https://forum.gtdb.ecogenomic.org/t/announcing-gtdb-r07-rs207/264">Genome Taxonomy Database, release 207</a>.</p>
+<p>Now search the genome against the GTDB database:</p>
+<pre><code class="language-shell">sourmash search GCF_000005845.2_ASM584v2_genomic.fna.gz.sig gtdb-rs207.genomic-reps.dna.k31.zip
 </code></pre>
-<p>Wait for it to build (~5 min?) and then</p>
-<pre><code class="language-shell">conda activate sourmash-latest
+<p>This will take about 5 minutes.</p>
+<p>The output will look like this:</p>
+<pre><code>8 matches; showing first 3:
+similarity   match
+----------   -----
+ 29.9%       GCF_003697165.2 Escherichia coli DSM 30083 = JCM 1649 = A...
+ 14.6%       GCF_002965065.1 Escherichia sp. MOD1-EC7003 strain=MOD1-E...
+ 14.2%       GCF_000026225.1 Escherichia fergusonii ATCC 35469 strain=...
 </code></pre>
-<p>and then run:</p>
-<pre><code class="language-shell">sourmash info
-</code></pre></div>
+<p>showing that this genome is, indeed, an <em>E. coli</em> genome :).</p>
+<p>The similarity in the left column is <a href="https://en.wikipedia.org/wiki/Jaccard_index">Jaccard similarity</a>, calculated using the k-mers in the query genome sketch against the k-mers in each of the database genome sketches.</p>
+<p>You can increase the number of output results with <code>-n</code>:</p>
+<pre><code>8 matches:
+similarity   match
+----------   -----
+ 29.9%       GCF_003697165.2 Escherichia coli DSM 30083 = JCM 1649 = A...
+ 14.6%       GCF_002965065.1 Escherichia sp. MOD1-EC7003 strain=MOD1-E...
+ 14.2%       GCF_000026225.1 Escherichia fergusonii ATCC 35469 strain=...
+ 14.1%       GCF_902498915.1 Escherichia ruysiae, OPT1704
+ 14.1%       GCF_004211955.1 Escherichia sp. E1V33 strain=E1V33, ASM42...
+ 13.5%       GCF_005843885.1 Escherichia sp. E4742 strain=E4742, ASM58...
+ 10.3%       GCF_001660175.1 Escherichia sp. B1147 strain=B1147, ASM16...
+ 10.1%       GCF_011881725.1 Escherichia coli strain=SCPM-O-B-8794, AS...
+</code></pre>
+<p>and you can record the results in a CSV file with <code>-o &lt;output.csv&gt;</code>.</p></div>
                 <footer>
     <div class="footer-buttons">
-        <div class="previous"><a href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/" title="Example: analyze a metagenome using 66000 GTDB genomic representatives"><span>Previous</span></a></div>
-        <div class="next"><a href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/" title="Example: creating and using an LCA database for taxonomic analysis"><span>Next</span></a></div>
+        <div class="previous"><a href="../11-create-a-signature-by-downloading-and-sketching-a-genome-sequence/" title="Example: create a signature by downloading and sketching a genome sequence"><span>Previous</span></a></div>
+        <div class="next"><a href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/" title="Example: create a metagenome signature from shotgun sequencing reads"><span>Next</span></a></div>
     </div>
     <div class="footer-note">
         <p>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/favicon.ico">
-    <title>Example: creating a conda environment with the latest version of sourmash &mdash; sourmash examples</title>
+    <title>analyzing metagenomes &mdash; sourmash examples</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -48,9 +48,7 @@
     <li class="toctree-l2"><a class="nav-item" href="../13-download-and-search-66000-GTDB-genomes-with-a-query-genome/">Example: download and search 66000 GTDB genomes with a query genome</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">Example: create a metagenome signature from shotgun sequencing reads</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">Example: analyze a metagenome using 66000 GTDB genomic representatives</a></li>
-    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: creating a conda environment with the latest version of sourmash</a>
-<ul class="subnav">
-</ul></li>
+    <li class="toctree-l2"><a class="nav-item" href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Example: creating a conda environment with the latest version of sourmash</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Example: creating and using an LCA database for taxonomic analysis</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading sketching and searching a collection of FASTA files</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../5-searching-collection-manifests-directly/">Example: searching collection manifests directly</a></li>
@@ -62,7 +60,9 @@
 <ul class="subnav">
     <li class="toctree-l2"><a class="nav-item" href="../l-advanced/">advanced examples</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-genome/">analyzing genomes</a></li>
-    <li class="toctree-l2"><a class="nav-item" href="../l-metagenome/">analyzing metagenomes</a></li>
+    <li class="toctree-l2 current"><a class="nav-item current" href="./">analyzing metagenomes</a>
+<ul class="subnav">
+</ul></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-databases/">creating databases</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-developer/">examples for developers</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../l-manifests/">examples of using manifests</a></li>
@@ -82,8 +82,8 @@
                 </ul>
             </nav>
             <div class="repo">
-    <div class="previous"><a href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">&laquo; Previous</a></div>
-    <div class="next"><a href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Next &raquo;</a></div>
+    <div class="previous"><a href="../l-genome/">&laquo; Previous</a></div>
+    <div class="next"><a href="../l-databases/">Next &raquo;</a></div>
 </div>
         </aside>
         <div id="spacer"><button class="arrow"></button></div>
@@ -95,38 +95,16 @@
             <div id="main">
                 <nav class="breadcrumbs">
 <ul>
-    <li>Examples</li>
+    <li>Categories</li>
 </ul>
 </nav>
-                <div id="content"><h1 id="example-creating-a-conda-environment-with-the-latest-version-of-sourmash">Example: creating a conda environment with the latest version of sourmash</h1>
-<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/6">sourmash-bio/sourmash-examples#6</a></em></p>
-<hr />
-<p>Per @bluegenes tested by @jessicalumian. </p>
-<p>Create a file <code>sourmash-latest.yml</code> containing the dependencies, plus a pointer to the latest version of sourmash:</p>
-<pre><code class="language-yaml">channels:
-  - conda-forge
-  - bioconda
-  - defaults
-dependencies:
-  - python=3.9
-  - rust
-  - pip
-  - pip:
-    - git+https://github.com/sourmash-bio/sourmash@latest
-</code></pre>
-<p>and then run:</p>
-<pre><code class="language-shell">conda env create -n sourmash-latest -f sourmash-latest.yml
-</code></pre>
-<p>Wait for it to build (~5 min?) and then</p>
-<pre><code class="language-shell">conda activate sourmash-latest
-</code></pre>
-<p>and then run:</p>
-<pre><code class="language-shell">sourmash info
-</code></pre></div>
+                <div id="content"><h1 id="analyzing-metagenomes">analyzing metagenomes</h1>
+<p><a href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">Example: create a metagenome signature from shotgun sequencing reads</a></p>
+<p><a href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">Example: analyze a metagenome using 66,000 GTDB genomic representatives</a></p></div>
                 <footer>
     <div class="footer-buttons">
-        <div class="previous"><a href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/" title="Example: analyze a metagenome using 66000 GTDB genomic representatives"><span>Previous</span></a></div>
-        <div class="next"><a href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/" title="Example: creating and using an LCA database for taxonomic analysis"><span>Next</span></a></div>
+        <div class="previous"><a href="../l-genome/" title="analyzing genomes"><span>Previous</span></a></div>
+        <div class="next"><a href="../l-databases/" title="creating databases"><span>Next</span></a></div>
     </div>
     <div class="footer-note">
         <p>

@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="../img/favicon.ico">
-    <title>Example: creating a conda environment with the latest version of sourmash &mdash; sourmash examples</title>
+    <title>Example: analyze a metagenome using 66000 GTDB genomic representatives &mdash; sourmash examples</title>
     <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Lato:400,700">
     <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/tonsky/FiraCode@1.206/distr/fira_code.css">
     <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
@@ -47,10 +47,10 @@
     <li class="toctree-l2"><a class="nav-item" href="../11-create-a-signature-by-downloading-and-sketching-a-genome-sequence/">Example: create a signature by downloading and sketching a genome sequence</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../13-download-and-search-66000-GTDB-genomes-with-a-query-genome/">Example: download and search 66000 GTDB genomes with a query genome</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">Example: create a metagenome signature from shotgun sequencing reads</a></li>
-    <li class="toctree-l2"><a class="nav-item" href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">Example: analyze a metagenome using 66000 GTDB genomic representatives</a></li>
-    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: creating a conda environment with the latest version of sourmash</a>
+    <li class="toctree-l2 current"><a class="nav-item current" href="./">Example: analyze a metagenome using 66000 GTDB genomic representatives</a>
 <ul class="subnav">
 </ul></li>
+    <li class="toctree-l2"><a class="nav-item" href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Example: creating a conda environment with the latest version of sourmash</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Example: creating and using an LCA database for taxonomic analysis</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../1-downloading-sketching-and-searching-a-collection-of-FASTA-files/">Example: downloading sketching and searching a collection of FASTA files</a></li>
     <li class="toctree-l2"><a class="nav-item" href="../5-searching-collection-manifests-directly/">Example: searching collection manifests directly</a></li>
@@ -82,8 +82,8 @@
                 </ul>
             </nav>
             <div class="repo">
-    <div class="previous"><a href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/">&laquo; Previous</a></div>
-    <div class="next"><a href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/">Next &raquo;</a></div>
+    <div class="previous"><a href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">&laquo; Previous</a></div>
+    <div class="next"><a href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/">Next &raquo;</a></div>
 </div>
         </aside>
         <div id="spacer"><button class="arrow"></button></div>
@@ -98,35 +98,41 @@
     <li>Examples</li>
 </ul>
 </nav>
-                <div id="content"><h1 id="example-creating-a-conda-environment-with-the-latest-version-of-sourmash">Example: creating a conda environment with the latest version of sourmash</h1>
-<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/6">sourmash-bio/sourmash-examples#6</a></em></p>
+                <div id="content"><h1 id="example-analyze-a-metagenome-using-66000-gtdb-genomic-representatives">Example: analyze a metagenome using 66,000 GTDB genomic representatives</h1>
+<p><em><a href="https://github.com/sourmash-bio/sourmash-examples/issues/14">sourmash-bio/sourmash-examples#14</a></em></p>
 <hr />
-<p>Per @bluegenes tested by @jessicalumian. </p>
-<p>Create a file <code>sourmash-latest.yml</code> containing the dependencies, plus a pointer to the latest version of sourmash:</p>
-<pre><code class="language-yaml">channels:
-  - conda-forge
-  - bioconda
-  - defaults
-dependencies:
-  - python=3.9
-  - rust
-  - pip
-  - pip:
-    - git+https://github.com/sourmash-bio/sourmash@latest
+<!--
+# yaml config options below.
+---
+frontpage: True # should it show up on front page?
+priority: 5 # default priority 999 => in with all the rest :). 1 pushes it to top, etc.
+---
+-->
+
+<p>This example uses the metagenome signature prepared in <a href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/">Example: create a metagenome signature from shotgun sequencing reads</a>.</p>
+<p>You'll also need to download the GTDB database as in <a href="../13-download-and-search-66000-GTDB-genomes-with-a-query-genome/">Example: download and search 66,000 GTDB genomes with a query genome</a>.</p>
+<p>Now, run <code>sourmash gather</code>:</p>
+<pre><code class="language-shell">sourmash gather SRR5950647.sig gtdb-rs207.genomic-reps.dna.k31.zip
 </code></pre>
-<p>and then run:</p>
-<pre><code class="language-shell">conda env create -n sourmash-latest -f sourmash-latest.yml
+<p>This should take about 5 minutes.</p>
+<p>The output should look like this:</p>
+<pre><code>overlap     p_query p_match avg_abund
+---------   ------- ------- ---------
+383.0 kbp      2.0%    7.8%       1.6    GCF_003697165.2 Escherichia coli DSM ...
+187.0 kbp      1.0%    5.0%       1.6    GCF_015074785.1 Prevotella copri stra...
+142.0 kbp      0.7%    2.8%       1.4    GCF_000012825.1 Bacteroides vulgatus ...
+164.0 kbp      0.3%    1.4%       1.7    GCF_019127135.1 Prevotella copri stra...
+found less than 50.0 kbp in common. =&gt; exiting
+
+found 4 matches total;
+the recovered matches hit 4.0% of the abundance-weighted query
 </code></pre>
-<p>Wait for it to build (~5 min?) and then</p>
-<pre><code class="language-shell">conda activate sourmash-latest
-</code></pre>
-<p>and then run:</p>
-<pre><code class="language-shell">sourmash info
-</code></pre></div>
+<p>This a <a href="https://www.biorxiv.org/content/10.1101/2022.01.11.475838v2">minimum metagenome cover</a> for the metagenome, based on the genomes in the GTDB database: in brief, it provides a shortest list of genomes that contain all of the known content in the metagenome (in this case, about 4%).</p>
+<p>Note: more of the metagenome might be matched if you used a larger database or a database that included eukaryotic and/or host sequence.</p></div>
                 <footer>
     <div class="footer-buttons">
-        <div class="previous"><a href="../14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/" title="Example: analyze a metagenome using 66000 GTDB genomic representatives"><span>Previous</span></a></div>
-        <div class="next"><a href="../2-creating-and-using-an-LCA-database-for-taxonomic-analysis/" title="Example: creating and using an LCA database for taxonomic analysis"><span>Next</span></a></div>
+        <div class="previous"><a href="../12-create-a-metagenome-signature-from-shotgun-sequencing-reads/" title="Example: create a metagenome signature from shotgun sequencing reads"><span>Previous</span></a></div>
+        <div class="next"><a href="../6-creating-a-conda-environment-with-the-latest-version-of-sourmash/" title="Example: creating a conda environment with the latest version of sourmash"><span>Next</span></a></div>
     </div>
     <div class="footer-note">
         <p>

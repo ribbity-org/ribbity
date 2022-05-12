@@ -2,127 +2,167 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
          <loc>https://ctb.github.io/ribbity/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/1-downloading-sketching-and-searching-a-collection-of-FASTA-files/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/11-create-a-signature-by-downloading-and-sketching-a-genome-sequence/</loc>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/12-create-a-metagenome-signature-from-shotgun-sequencing-reads/</loc>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/13-download-and-search-66000-GTDB-genomes-with-a-query-genome/</loc>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/14-analyze-a-metagenome-using-66000-GTDB-genomic-representatives/</loc>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/2-creating-and-using-an-LCA-database-for-taxonomic-analysis/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/3-using-sourmash-tax-to-classify-a-metagenome/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/4-using-picklists-and-manifests-to-work-with-a-small-subset-of-a-large-database/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/5-searching-collection-manifests-directly/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/6-creating-a-conda-environment-with-the-latest-version-of-sourmash/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/7-using-genomeupdater.sh-and-sketch-fromfile-to-build-a-custom-database/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/9-install-sourmash/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/examples/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-advanced/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-databases/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-developer/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-fasta/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/l-fastq/</loc>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/l-genome/</loc>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-gtdb-rs207/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/l-installation/</loc>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-intermediate/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-intro/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-manifests/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
+         <changefreq>daily</changefreq>
+    </url>
+    <url>
+         <loc>https://ctb.github.io/ribbity/l-metagenome/</loc>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-needs-improvement/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-picklists/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-sourmash-v4.0/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-sourmash-v4.2/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-sourmash-v4.4/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/l-taxonomy/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
          <loc>https://ctb.github.io/ribbity/labels/</loc>
-         <lastmod>2022-05-11</lastmod>
+         <lastmod>2022-05-12</lastmod>
          <changefreq>daily</changefreq>
     </url>
 </urlset>
