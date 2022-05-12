@@ -33,10 +33,10 @@ mkdocs_yml = """\
 site_name: {site_name}
 site_url: {site_url}
 
-theme:
-  logo: assets/sourmash-logo.png
-  favicon: assets/sourmash.ico
-  name: ivory
+#theme:
+#  logo: assets/sourmash-logo.png
+#  favicon: assets/sourmash.ico
+#  name: ivory
 
 nav:
 {nav}
@@ -125,8 +125,8 @@ def main():
     nav_contents.append(dict(Home='index.md'))
     nav_contents.append({'All examples': 'examples.md'})
     nav_contents.append({'All categories': 'labels.md'})
-    nav_contents.append(dict(Examples=all_examples))
-    nav_contents.append(dict(Categories=all_labels))
+#    nav_contents.append(dict(Examples=all_examples))
+#    nav_contents.append(dict(Categories=all_labels))
 
     with open('mkdocs.yml', 'wt') as fp:
         print(config_d)
@@ -163,10 +163,6 @@ Do you have questions or comments? [File an
 issue](https://github.com/sourmash-bio/sourmash/issues) or [come chat
 on gitter](https://gitter.im/sourmash-bio/community)!
 
----
-
-*Go to: [All examples](examples.md) | [All categories](labels.md)*
-
 ## Start here!
 
 """, file=fp)
@@ -174,6 +170,16 @@ on gitter](https://gitter.im/sourmash-bio/community)!
             if issue.config.get('frontpage'):
                 print(f"""
 [Example: {issue.title}]({issue.output_filename})
+""", file=fp)
+
+        print("""
+---
+
+## [All examples](examples.md)
+
+---
+
+## [All categories](labels.md)
 """, file=fp)
 
     print("built index.md")
