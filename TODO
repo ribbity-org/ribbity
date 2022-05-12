@@ -1,15 +1,19 @@
 sooner:
-- fix favico
 - make config file
+- push to sourmash-examples rtfd
+- github actions on sourmash examples?
+
+updates:
+* example page: add links to categories, related examples.
 
 explore:
-- images?
-- comments? link directly, and/or link count
+- fix favico
+- what happens with images?
+- comments? link directly, and/or provide count?
 - provide tools for reverse linking into external md documents (e.g. sourmash docs)
-- default issue/example template
 
 eventual:
-- use jinja2 templating for rewriting
+- use jinja2 templating for writing basic pages
 
 refinements -
 - link to users with @
@@ -19,8 +23,11 @@ ARGUMENTS for using github issues:
 - linking between issues in different repositories
 - robust commenting on issues
 - good auth/moderation/contribution on github
+- label API is nice
+- markdown formatting is nice
 
-examples to add:
-* sketching a genome or metagenome
-* downloading and searching a database with a genome / search
-* downloading and searching a database with a metagenome / gather
+Additional:
+- creating conda environment
+- limiting search results with include
+- sig grep
+- sig summarize

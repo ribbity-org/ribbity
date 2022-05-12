@@ -7,11 +7,12 @@ import argparse
 import re
 from pickle import load
 import yaml
+import tomli
 from collections import defaultdict
 
 
-def rewrite_internal_links(body, issues_by_number):
-    url = re.escape('https://github.com/sourmash-bio/sourmash-examples/issues/')
+def rewrite_internal_links(body, issues_by_number, github_repo):
+    url = re.escape(f'https://github.com/{github_repo}/issues/')
     pattern = f"{url}(\\d+)"
 
     # find and rewrite all internal links:
@@ -29,8 +30,8 @@ def rewrite_internal_links(body, issues_by_number):
 
 
 mkdocs_yml = """\
-site_name: sourmash examples
-site_url: https://ctb.github.io/ribbity/
+site_name: {site_name}
+site_url: {site_url}
 
 theme:
   logo: assets/sourmash-logo.png
@@ -46,6 +47,14 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument('issues_dmp')
     args = p.parse_args()
+
+    # load config
+    with open("site-config.toml", "rb") as fp:
+        config_d = tomli.load(fp)
+
+    github_repo = config_d['github_repo']
+    assert not github_repo.startswith('http')
+    github_repo = github_repo.strip('/')
 
     with open(args.issues_dmp, 'rb') as fp:
         issues_list = load(fp)
@@ -68,12 +77,12 @@ def main():
     for issue in issues_list:
         filename = issue.output_filename
 
-        body = rewrite_internal_links(issue.body, issues_by_number)
+        body = rewrite_internal_links(issue.body, issues_by_number, github_repo)
         with open("docs/" + filename, "wt") as fp:
             print(f"""\
 # {issue.output_title}
 
-*[sourmash-bio/sourmash-examples#{issue.number}](https://github.com/sourmash-bio/sourmash-examples/issues/{issue.number})*
+*[{github_repo}#{issue.number}](https://github.com/{github_repo}/issues/{issue.number})*
 
 ---
 
@@ -114,13 +123,16 @@ def main():
 
     nav_contents = []
     nav_contents.append(dict(Home='index.md'))
-    nav_contents.append(dict(Examples=all_examples))
-    nav_contents.append(dict(Categories=all_labels))
     nav_contents.append({'All examples': 'examples.md'})
     nav_contents.append({'All categories': 'labels.md'})
+    nav_contents.append(dict(Examples=all_examples))
+    nav_contents.append(dict(Categories=all_labels))
 
     with open('mkdocs.yml', 'wt') as fp:
-        print(mkdocs_yml.format(nav=yaml.safe_dump(nav_contents)), file=fp)
+        print(config_d)
+        mkdocs_out = mkdocs_yml.format(nav=yaml.safe_dump(nav_contents),
+                                       **config_d)
+        fp.write(mkdocs_out)
 
     print("built mkdocs.yml")
 
@@ -129,7 +141,7 @@ def main():
     issues_list.sort()
     with open('docs/index.md', 'wt') as fp:
         print(f"""\
-# Welcome to sourmash-examples!
+# Welcome to {config_d['site_name']}!
 
 This is a collection of examples and recipes for [the sourmash
 software](https://sourmash.readthedocs.io/), for fast genomic and
