@@ -1,8 +1,3 @@
-sooner:
-- make config file
-- push to sourmash-examples rtfd
-- github actions on sourmash examples?
-
 updates:
 * example page: add links to categories, related examples.
 
@@ -12,11 +7,9 @@ explore:
 - comments? link directly, and/or provide count?
 - provide tools for reverse linking into external md documents (e.g. sourmash docs)
 
-eventual:
-- use jinja2 templating for writing basic pages
-
 refinements -
 - link to users with @
+- github actions on sourmash examples?
 
 ARGUMENTS for using github issues:
 - forward and reverse links between issues
