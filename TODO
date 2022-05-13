@@ -12,6 +12,9 @@ refinements -
 - link to users with @
 - github actions on sourmash examples?
 
+longer-term:
+- consider references to content, e.g. issue: content is over <here>
+
 ARGUMENTS for using github issues:
 - forward and reverse links between issues
 - linking between issues in different repositories
@@ -20,7 +23,7 @@ ARGUMENTS for using github issues:
 - label API is nice
 - markdown formatting is nice
 
-Additional:
+Additional comments:
 - creating conda environment
 - limiting search results with include
 - sig grep
