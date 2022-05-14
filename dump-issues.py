@@ -44,6 +44,10 @@ def main():
     issues_list = []
     for n, issue in enumerate(repo.get_issues()):
         print(f"loading issue {issue.number}...")
+        if issue.pull_request:
+            print('...issue is a PR. skipping!')
+            continue
+
         if not github_username and n and n % 3:
             time.sleep(1)
         elif n and n % 10:
