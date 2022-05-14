@@ -31,6 +31,19 @@ def rewrite_internal_links(body, issues_by_number, github_repo):
     return body
 
 
+def make_links_clickable(body):
+    # from https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
+    pattern = '^\(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+
+    def repl(m):
+        match_str = body[m.start():m.end()]
+        link = f"[{match_str}]({match_str})"
+        return link
+
+    body = re.sub(pattern, repl, body)
+    return body
+
+
 def main():
     p = argparse.ArgumentParser()
     p.add_argument('issues_dmp')
@@ -66,6 +79,8 @@ def main():
         filename = issue.output_filename
 
         body = rewrite_internal_links(issue.body, issues_by_number, github_repo)
+        body = make_links_clickable(body)
+
         with open("docs/" + filename, "wt") as fp:
             md = render_md("_generic_issue.md",
                            dict(issue=issue, body=body, **config_d))
