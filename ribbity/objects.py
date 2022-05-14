@@ -64,6 +64,10 @@ class Issue:
         return {}
 
     @property
+    def is_frontpage(self):
+        return self.config.get('frontpage', False)
+
+    @property
     def priority(self):
         return self.config.get('priority', DEFAULT_ISSUE_PRIORITY)
 

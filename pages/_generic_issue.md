@@ -9,7 +9,7 @@
 {% if issue.labels %}
 ## Categories
 
-This example has the following categories:
+This example belongs to the following categories:
 
 {% for label in issue.labels %} * [{{label.output_name}}]({{label.output_filename}})
 {% endfor %}

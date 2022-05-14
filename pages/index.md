@@ -23,9 +23,11 @@ on gitter](https://gitter.im/sourmash-bio/community)!
 ## Start here!
 
 {% for issue in issues_list %}
+{% if issue.is_frontpage %}
 
 [Example: {{issue.title}}]({{issue.output_filename}})
 
+{% endif %}
 {% endfor %}
 
 ---

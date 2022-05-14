@@ -1,5 +1,8 @@
 updates:
-* example page: add links to categories, related examples.
+* example page: add links to related examples.
+* CLI improvements - click or argparse?
+* gh token
+* package for pypi/register project
 
 explore:
 - fix favico
@@ -17,11 +20,12 @@ longer-term:
 
 ARGUMENTS for using github issues:
 - forward and reverse links between issues
-- linking between issues in different repositories
+- linking between issues and PRs in different repositories
 - robust commenting on issues
 - good auth/moderation/contribution on github
 - label API is nice
 - markdown formatting is nice
+- can use github editor for quick examples, hackmd for longer ones
 
 Additional comments:
 - creating conda environment
