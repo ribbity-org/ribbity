@@ -1,3 +1,6 @@
+"""
+Command-line interface.
+"""
 import click
 from .main_pull import main as main_pull
 from .main_build import main as main_build
@@ -7,14 +10,16 @@ def cli():
     pass
 
 @click.command()
-@click.argument("configfile")
+@click.argument("configfile", default="site-config.toml")
 def pull(configfile):
+    "pull issues from repository to local"
     return main_pull(configfile)
 
 
 @click.command()
-@click.argument("configfile")
+@click.argument("configfile", default="site-config.toml")
 def build(configfile):
+    "build from local issues to mkdocs site"
     return main_build(configfile)
 
 

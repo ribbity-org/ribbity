@@ -1,9 +1,8 @@
 all:
-	snakemake -j 1
+	ribbity build
 
-force:
-	touch issues-to-md.py
-	snakemake -j 1
+pull:
+	ribbity pull site-config.toml
 
 serve:
 	mkdocs serve

@@ -3,4 +3,4 @@ mkdocs
 tomli
 jinja2
 pyyaml
-snakemake
+click
