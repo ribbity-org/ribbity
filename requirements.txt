@@ -2,3 +2,4 @@ pygithub
 mkdocs
 tomli
 jinja2
+yaml
