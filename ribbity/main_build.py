@@ -44,9 +44,9 @@ def make_links_clickable(body):
     return body
 
 
-def main(connfigfile):
+def main(configfile):
     # load config
-    with open("site-config.toml", "rb") as fp:
+    with open(configfile, "rb") as fp:
         config_d = tomli.load(fp)
 
     github_repo = config_d['github_repo']

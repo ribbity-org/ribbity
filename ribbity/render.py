@@ -1,8 +1,8 @@
-from jinja2 import Environment, ChoiceLoader, FileSystemLoader
+from jinja2 import Environment, PackageLoader
 
 
 env = Environment(
-    loader=ChoiceLoader([FileSystemLoader('./pages')]),
+    loader=PackageLoader("ribbity")
 )
 
 
