@@ -14,15 +14,14 @@ from github import Github
 from ribbity import objects
 
 
-def main():
-    p = argparse.ArgumentParser()
-    p.add_argument('repo')
-    p.add_argument('-o', '--output', required=True)
-    args = p.parse_args()
-
+def main(configfile):
     # load config
-    with open("site-config.toml", "rb") as fp:
+    with open(configfile, "rb") as fp:
         config_d = tomli.load(fp)
+
+    github_repo = config_d['github_repo']
+    issues_dump = config_d['issues_dump']
+        
 
     github_username = config_d.get('github_username')
     if github_username:
@@ -38,7 +37,7 @@ def main():
         print(f"Not using github login for API. You can set 'github_username' in config if you like.", file=sys.stderr)
         g = Github()
 
-    repo = g.get_repo(args.repo)
+    repo = g.get_repo(github_repo)
     print(repo)
 
     issues_list = []
@@ -65,8 +64,8 @@ def main():
                                   labels)
         issues_list.append(issue_obj)
 
-    print(f'saving to {args.output}')
-    with open(args.output, 'wb') as fp:
+    print(f'saving to {issues_dump}')
+    with open(issues_dump, 'wb') as fp:
         dump(issues_list, fp)
     
     return 0

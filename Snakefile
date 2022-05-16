@@ -1,9 +1,12 @@
 import tomli
 
-with open('site-config.toml', 'rb') as fp:
+toml_config = 'site-config.toml'
+
+with open(toml_config, 'rb') as fp:
     config_d = tomli.load(fp)
 
 github_repo = config_d['github_repo']
+issues_dump = config_d['issues_dump']
 
 rule all:
     input:
@@ -12,22 +15,19 @@ rule all:
         "docs/index.md"
 
 rule dump_issues:
-    input:
-        "dump-issues.py"
     output:
-        "sourmash-examples.dmp"
+        issues_dump
     shell: """
-        python dump-issues.py {github_repo} -o {output}
+        python -m ribbity pull {toml_config}
     """
         
 rule make_markdown:
     input:
-        dmp = "sourmash-examples.dmp",
-        script = "issues-to-md.py"
+        dmp = issues_dump,
     output:
         "mkdocs.yml",
         "docs/index.md"
     shell: """
         rm -f docs/* || true
-        ./issues-to-md.py {input.dmp}
+        python -m ribbity build {toml_config}
     """

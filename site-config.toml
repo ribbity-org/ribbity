@@ -7,3 +7,4 @@ add_pages = [ "index.md", "examples.md", "labels.md" ]
 
 github_username = 'ctb'
 
+issues_dump = 'sourmash-examples.dmp'

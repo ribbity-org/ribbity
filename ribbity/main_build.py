@@ -44,11 +44,7 @@ def make_links_clickable(body):
     return body
 
 
-def main():
-    p = argparse.ArgumentParser()
-    p.add_argument('issues_dmp')
-    args = p.parse_args()
-
+def main(connfigfile):
     # load config
     with open("site-config.toml", "rb") as fp:
         config_d = tomli.load(fp)
@@ -57,10 +53,12 @@ def main():
     assert not github_repo.startswith('http')
     github_repo = github_repo.strip('/')
 
-    with open(args.issues_dmp, 'rb') as fp:
+    issues_dump = config_d['issues_dump']
+
+    with open(issues_dump, 'rb') as fp:
         issues_list = load(fp)
 
-    print(f"loaded {len(issues_list)} issues from '{args.issues_dmp}'")
+    print(f"loaded {len(issues_list)} issues from '{issues_dump}'")
 
     labels_to_issues = defaultdict(list)
     issues_by_number = {}

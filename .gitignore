@@ -5,3 +5,4 @@ site
 sourmash-examples.dmp
 mkdocs.yml
 __pycache__
+ribbity.egg-info/
