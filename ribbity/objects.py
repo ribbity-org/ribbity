@@ -1,7 +1,8 @@
+import sys
 from dataclasses import dataclass
 import re
-import yaml
 from functools import total_ordering
+import tomli
 
 
 DEFAULT_ISSUE_PRIORITY=999
@@ -53,12 +54,20 @@ class Issue:
 
         start = body.find('---')
         assert start >= 0
-        end = body.find('---', start + 3)
+        start += 3
+        end = body.find('---', start)
         if end == -1:
             return {}
 
-        yaml_text = body[start:end]
-        x = yaml.safe_load(yaml_text)
+        config_text = body[start:end]
+        try:
+            x = tomli.loads(config_text)
+        except tomli.TOMLDecodeError:
+            print(f"ERROR parsing TOML from issue {self.number}.",
+                  file=sys.stderr)
+            print(f"TOML string: '''\n{config_text}\n'''")
+            raise
+
         if x:
             return dict(x)
         return {}

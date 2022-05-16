@@ -3,6 +3,7 @@ updates:
 * CLI improvements - click or argparse?
 * gh token
 * package for pypi/register project
+* ignore this page (in indices? overall?)
 
 explore:
 - fix favico
@@ -26,6 +27,8 @@ ARGUMENTS for using github issues:
 - label API is nice
 - markdown formatting is nice
 - can use github editor for quick examples, hackmd for longer ones
+see also https://angeliqueweger.com/blog/2021/love-letter-to-lftm/
+- enables the "pull request hack" but with out PRs!
 
 Additional comments:
 - creating conda environment
