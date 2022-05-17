@@ -1,6 +1,5 @@
 "Basic tests of ribbity functionality."
-
-from pickle import load, dump
+from pickle import load
 import os
 
 import pytest
@@ -52,19 +51,19 @@ def test_pull_issue1_basic():
 def test_pull_issue2_no_such_issue():
     # issue 2 is closed and should not show up
     with pytest.raises(IndexError):
-        issue = get_issue_by_number(2)
+        get_issue_by_number(2)
 
 
 def test_pull_issue4_open_pr():
     # issue 4 is a pr and should not show up
     with pytest.raises(IndexError):
-        issue = get_issue_by_number(4)
+        get_issue_by_number(4)
 
 
 def test_pull_issue5_closed_pr():
     # issue 5 is a pr and should not show up
     with pytest.raises(IndexError):
-        issue = get_issue_by_number(5)
+        get_issue_by_number(5)
 
 
 def test_pull_issue3_basic():
@@ -89,7 +88,7 @@ def test_pull_issue3_basic():
     assert issue.priority == 5
 
 
-def test_issue6_basic_properties():
+def test_pull_issue6_basic_properties():
     # test object contents for issue 5, title rewriting and no toml config.
     issue = get_issue_by_number(6)
 
@@ -106,3 +105,45 @@ def test_issue6_basic_properties():
     # properly represented in issue object with defaults?
     assert not issue.is_frontpage
     assert issue.priority == 999
+
+
+def test_markdown_issue1():
+    # look at issue1 markdown output
+    md = load_md('1-test-issue-number-1.md')
+    assert md.startswith('# Example: test issue number 1')
+    assert 'this is a test' in md
+
+    assert '[ctb/ribbity-test-repo#1](https://github.com/ctb/ribbity-test-repo/issues/1)' in md
+
+
+def test_markdown_issue3():
+    # look at issue3 markdown output
+    md = load_md('3-test-toml-config.md')
+    assert md.startswith('# Example: test toml config')
+    assert 'this example should show up front page' in md
+
+    assert '*[ctb/ribbity-test-repo#3](https://github.com/ctb/ribbity-test-repo/issues/3)*' in md
+
+
+def test_markdown_issue6():
+    # look at issue6 markdown output
+    md = load_md('6-test-other-things.md')
+    assert md.startswith('# Example: test `other` things!')
+
+
+def test_markdown_index_examples():
+    # look at front page and examples
+    index_md = load_md('index.md')
+    examples_md = load_md('examples.md')
+
+    # issue 1 only in full list
+    assert '[Example: test issue number 1](1-test-issue-number-1.md)' not in index_md
+    assert '[Example: test issue number 1](1-test-issue-number-1.md)' in examples_md
+
+    # issue 3 in both
+    assert '[Example: test toml config](3-test-toml-config.md)' in index_md
+    assert '[Example: test toml config](3-test-toml-config.md)' in examples_md
+
+    # issue 6 only in full list
+    assert '[Example: test `other` things!](6-test-other-things.md)' not in index_md
+    assert '[Example: test `other` things!](6-test-other-things.md)' in examples_md
