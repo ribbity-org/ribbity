@@ -9,3 +9,7 @@ serve:
 
 deploy:
 	mkdocs gh-deploy
+
+test:
+	ribbity pull config-test.toml
+	py.test tests

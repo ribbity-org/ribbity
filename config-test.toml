@@ -1,0 +1,10 @@
+title = "ribbity-tests"
+site_name = "ribbity test site"
+site_url = "https://ctb.github.io/ribbity/"
+github_repo = "ctb/ribbity-test-repo"
+
+add_pages = [ "index.md", "examples.md", "labels.md" ]
+
+github_username = 'ctb'
+
+issues_dump = 'ribbity-test.dmp'
