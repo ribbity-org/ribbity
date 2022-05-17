@@ -34,10 +34,10 @@ setup(
     package_data={"ribbity": []},
     setup_requires=[
         "setuptools>=38.6.0",
-#        "setuptools_scm",
-#        "setuptools_scm_git_archive",
+        "setuptools_scm",
+        "setuptools_scm_git_archive",
     ],
-#    use_scm_version={"write_to": "ribbity/version.py"},
+    use_scm_version={"write_to": "ribbity/version.py"},
 # @CTB expand
     install_requires=["click"],
     long_description=long_description,
