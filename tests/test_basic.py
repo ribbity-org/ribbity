@@ -1,5 +1,9 @@
+"Basic tests of ribbity functionality."
+
 from pickle import load, dump
 import os
+
+import pytest
 
 thisdir = os.path.dirname(os.path.abspath(__file__))
 def path_to(*p):
@@ -24,6 +28,7 @@ def get_issue_by_number(num):
 
 
 def test_pull_issue1_basic():
+    # test object contents for issue 1
     issue = get_issue_by_number(1)
 
     assert issue.number == 1
@@ -42,3 +47,15 @@ def test_pull_issue1_basic():
     # properly represented in issue object?
     assert not issue.is_frontpage
     assert issue.priority == 999
+
+
+def test_pull_issue2_no_such_issue():
+    # issue 2 is closed and should not show up
+    with pytest.raises(IndexError):
+        issue = get_issue_by_number(2)
+
+
+def test_pull_issue4_open_pr():
+    # issue 4 is a pr and should not show up
+    with pytest.raises(IndexError):
+        issue = get_issue_by_number(4)
