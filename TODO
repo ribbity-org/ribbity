@@ -1,16 +1,13 @@
 updates:
 * example page: add links to related examples.
-* CLI improvements - click or argparse?
-* gh token
-* package for pypi/register project
+* register project
+* quickstart docs
 * ignore this page (in indices? overall?)
 
 explore:
 - fix favico
-- what happens with images?
 - comments? link directly, and/or provide count?
 - provide tools for reverse linking into external md documents (e.g. sourmash docs)
-- switch to TOML
 
 refinements -
 - link to users with @
@@ -29,8 +26,9 @@ ARGUMENTS for using github issues:
 - can use github editor for quick examples, hackmd for longer ones
 see also https://angeliqueweger.com/blog/2021/love-letter-to-lftm/
 - enables the "pull request hack" but with out PRs!
+- viz utterances
 
-Additional comments:
+Additional examples:
 - creating conda environment
 - limiting search results with include
 - sig grep
