@@ -59,3 +59,50 @@ def test_pull_issue4_open_pr():
     # issue 4 is a pr and should not show up
     with pytest.raises(IndexError):
         issue = get_issue_by_number(4)
+
+
+def test_pull_issue5_closed_pr():
+    # issue 5 is a pr and should not show up
+    with pytest.raises(IndexError):
+        issue = get_issue_by_number(5)
+
+
+def test_pull_issue3_basic():
+    # test object contents for issue 3, which has toml config
+    issue = get_issue_by_number(3)
+
+    assert issue.number == 3
+    assert issue.title == 'test toml config'
+    assert 'this example should show up front' in issue.body, (issue.body,)
+    assert not issue.labels
+    assert issue.output_title == 'Example: test toml config'
+    assert issue.output_filename == '3-test-toml-config.md'
+    assert issue.index_title == 'Example: test toml config'
+
+    # properly parsed TOML?
+    assert len(issue.config) == 2
+    assert 'frontpage' in issue.config
+    assert 'priority' in issue.config
+
+    # properly represented in issue object?
+    assert issue.is_frontpage
+    assert issue.priority == 5
+
+
+def test_issue6_basic_properties():
+    # test object contents for issue 5, title rewriting and no toml config.
+    issue = get_issue_by_number(6)
+
+    assert issue.number == 6
+    assert issue.title == 'test `other` things!'
+    assert not issue.labels
+    assert issue.output_title == 'Example: test `other` things!'
+    assert issue.output_filename == '6-test-other-things.md'
+    assert issue.index_title == 'Example: test other things'
+
+    # no TOML?
+    assert not issue.config
+
+    # properly represented in issue object with defaults?
+    assert not issue.is_frontpage
+    assert issue.priority == 999
