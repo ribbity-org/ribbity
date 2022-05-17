@@ -4,7 +4,6 @@ Dump a bunch of issues from github into a pickle file.
 """
 import sys
 import os
-import argparse
 import time
 from pickle import dump
 
@@ -30,11 +29,11 @@ def main(configfile):
             print(f"Using github username {github_username} with auth token from RIBBITY_GH_TOKEN", file=sys.stderr)
             g = Github(github_username, auth_token)
         else:
-            print(f"No auth token set with RIBBITY_GH_TOKEN; not using github login for API.", file=sys.stderr)
+            print("No auth token set with RIBBITY_GH_TOKEN; not using github login for API.", file=sys.stderr)
             g = Github()
 
     else:
-        print(f"Not using github login for API. You can set 'github_username' in config if you like.", file=sys.stderr)
+        print("Not using github login for API. You can set 'github_username' in config if you like.", file=sys.stderr)
         g = Github()
 
     repo = g.get_repo(github_repo)

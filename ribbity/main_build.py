@@ -3,7 +3,6 @@
 Convert an issues dump file (from dump-issues.py) into a mkdocs site.
 """
 import sys
-import argparse
 import re
 from pickle import load
 import yaml
@@ -86,7 +85,6 @@ def main(configfile):
         print(f'wrote to {filename}')
 
     # output all labels:
-    all_labels = []
     for label, issues_for_label in labels_to_issues.items():
         label_filename = label.output_filename
         with open('docs/' + label_filename, "wt") as fp:

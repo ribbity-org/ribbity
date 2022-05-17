@@ -32,6 +32,7 @@ class Issue:
 
     @property
     def output_filename(self):
+        "A unique filename that is filesystem-pleasant: special char removed."
         title = re.sub('[^A-Za-z0-9. ]+', '', self.title)
         title = title.replace(' ', '-')
         filename = f"{self.number}-{title}.md"
@@ -39,10 +40,12 @@ class Issue:
 
     @property
     def output_title(self):
+        "A title with prefix 'Example: '"
         return f"Example: {self.title}"
 
     @property
     def index_title(self):
+        "A title suitable for indexes - no special characters/formatting"
         title = re.sub('[^A-Za-z0-9._ ]+', '', self.title)
         return f"Example: {title}"
 
