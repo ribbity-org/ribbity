@@ -12,4 +12,5 @@ deploy:
 
 test:
 	ribbity pull config-test.toml
+	ribbity build config-test.toml
 	py.test tests

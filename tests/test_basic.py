@@ -117,7 +117,7 @@ def test_markdown_issue1():
 
 
 def test_markdown_issue3():
-    # look at issue3 markdown output
+    # look at issue3 markdown output - unexceptional stuff.
     md = load_md('3-test-toml-config.md')
     assert md.startswith('# Example: test toml config')
     assert 'this example should show up front page' in md
@@ -126,9 +126,11 @@ def test_markdown_issue3():
 
 
 def test_markdown_issue6():
-    # look at issue6 markdown output
+    # look at issue6 markdown output - do titles get rendered properly?
     md = load_md('6-test-other-things.md')
     assert md.startswith('# Example: test `other` things!')
+
+    assert '## Categories' not in md
 
 
 def test_markdown_index_examples():
@@ -147,3 +149,32 @@ def test_markdown_index_examples():
     # issue 6 only in full list
     assert '[Example: test `other` things!](6-test-other-things.md)' not in index_md
     assert '[Example: test `other` things!](6-test-other-things.md)' in examples_md
+
+
+def test_markdown_issue7():
+    # look at issue7, with labels
+    md = load_md('7-issue-with-labels.md')
+
+    assert '## Categories' in md
+    assert '[This issue or pull request already exists](l-duplicate.md)' in md
+    assert '[Good for newcomers](l-good first issue.md)' in md
+
+    # check in labels.md @CTB
+
+
+def test_markdown_issue8():
+    # look at issue8, with labels
+    md = load_md('8-what-happens-with-external-links.md')
+
+    assert '## Categories' not in md
+    assert """in a [markdown link](https://github.com/sourmash-bio/sourmash-examples/issues?q=is%3Aissue+is%3Aopen+%27frontpage%3A+True%27).""" in md
+
+    # @CTB FAIL:
+    # @CTB https not working? does http work? nope.
+
+
+def test_markdown_issue9():
+    # look at issue9, with reference to issue 7
+    md = load_md('9-this-issue-refers-to-another-issue.md')
+
+    assert "is [Example: issue with labels!](7-issue-with-labels.md)" in md
