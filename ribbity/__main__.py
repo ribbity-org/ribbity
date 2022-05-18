@@ -23,8 +23,20 @@ def build(configfile):
     return main_build(configfile)
 
 
+@click.command()
+@click.argument("configfile", default="site-config.toml")
+def do(configfile):
+    "pull and build"
+    retval = main_pull(configfile)
+    if not retval:
+        return main_build(configfile)
+    else:
+        return retval
+
+
 cli.add_command(pull)
 cli.add_command(build)
+cli.add_command(do)
 
     
 def main():

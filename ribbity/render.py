@@ -1,8 +1,10 @@
-from jinja2 import Environment, PackageLoader
+from jinja2 import Environment, PackageLoader, FileSystemLoader, ChoiceLoader
 
 
+site_loader = FileSystemLoader("site-templates")
+pkg_loader = PackageLoader("ribbity")
 env = Environment(
-    loader=PackageLoader("ribbity")
+    loader=ChoiceLoader([site_loader, pkg_loader])
 )
 
 

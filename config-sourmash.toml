@@ -1,0 +1,10 @@
+title = "sourmash-examples"
+site_name = "sourmash examples"
+site_url = "https://ctb.github.io/ribbity/"
+github_repo = "sourmash-bio/sourmash-examples"
+
+add_pages = [ "index.md", "examples.md", "labels.md" ]
+
+github_username = 'ctb'
+
+issues_dump = 'sourmash-examples.dmp'

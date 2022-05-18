@@ -4,6 +4,8 @@ Convert an issues dump file (from dump-issues.py) into a mkdocs site.
 """
 import sys
 import re
+import contextlib
+import os
 from pickle import load
 import yaml
 import tomli
@@ -59,15 +61,16 @@ def main(configfile):
 
     print(f"loaded {len(issues_list)} issues from '{issues_dump}'")
 
+    with contextlib.suppress(FileExistsError):
+        os.mkdir('docs')
+        print("created 'docs/' subdirectory", file=sys.stderr)
+
+    # organize issues and labels
     labels_to_issues = defaultdict(list)
     issues_by_number = {}
 
-    # organize issues and labels
     for issue in issues_list:
         issues_by_number[issue.number] = issue
-        if issue.config:
-            print(issue.config)
-
         for label in issue.labels:
             labels_to_issues[label].append(issue)
 
@@ -82,7 +85,7 @@ def main(configfile):
             md = render_md("_generic_issue.md",
                            dict(issue=issue, body=body, **config_d))
             fp.write(md)
-        print(f'wrote to {filename}')
+        print(f'wrote to {filename}', end='\r', file=sys.stderr)
 
     # output all labels:
     for label, issues_for_label in labels_to_issues.items():
@@ -92,7 +95,7 @@ def main(configfile):
                            dict(label=label, issues_for_label=issues_for_label,
                                 **config_d))
             fp.write(md)
-        print(f"wrote to {label_filename}")
+        print(f"wrote to {label_filename}", end='\r', file=sys.stderr)
 
     ### make mkdocs.yml
     nav_contents = []
@@ -107,7 +110,7 @@ def main(configfile):
     with open('mkdocs.yml', 'wt') as fp:
         for element in mkdocs_config:
             print(yaml.safe_dump(element), file=fp)
-    print("wrote mkdocs.yml", file=sys.stderr)
+    print("wrote mkdocs.yml", file=sys.stderr, end='\r')
 
     ## set up variable dict for rendering
     issues_list.sort()
@@ -123,7 +126,7 @@ def main(configfile):
         # save to ./docs/
         with open(f"docs/{filename}", "wt") as fp:
             fp.write(md)
-        print(f"built {filename}", file=sys.stderr)
+        print(f"built {filename}", file=sys.stderr, end='\r')
 
     return 0
 

@@ -1,8 +1,8 @@
 updates:
 * example page: add links to related examples.
-* register project
 * quickstart docs
 * ignore this page (in indices? overall?)
+* fix http links thing
 
 explore:
 - fix favico
@@ -12,6 +12,8 @@ explore:
 refinements -
 - link to users with @
 - github actions on sourmash examples?
+- add README flair / pypi etc
+- github actions
 
 longer-term:
 - consider references to content, e.g. issue: content is over <here>
@@ -28,7 +30,7 @@ see also https://angeliqueweger.com/blog/2021/love-letter-to-lftm/
 - enables the "pull request hack" but with out PRs!
 - viz utterances
 
-Additional examples:
+Additional sourmash examples:
 - creating conda environment
 - limiting search results with include
 - sig grep

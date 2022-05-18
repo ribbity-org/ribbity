@@ -1,8 +1,10 @@
-all:
-	ribbity build
+all: build
 
 pull:
 	ribbity pull site-config.toml
+
+build:
+	ribbity build
 
 serve:
 	mkdocs serve
