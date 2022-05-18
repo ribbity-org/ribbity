@@ -3,7 +3,6 @@ updates:
 * quickstart docs
 * ignore this page (in indices? overall?)
 * fix http links thing
-* local templates/
 
 explore:
 - fix favico
@@ -14,6 +13,7 @@ refinements -
 - link to users with @
 - github actions on sourmash examples?
 - add README flair / pypi etc
+- github actions
 
 longer-term:
 - consider references to content, e.g. issue: content is over <here>
