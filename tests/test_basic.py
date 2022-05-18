@@ -183,8 +183,10 @@ def test_markdown_issue8():
     assert '## Categories' not in md
     assert """in a [markdown link](https://github.com/sourmash-bio/sourmash-examples/issues?q=is%3Aissue+is%3Aopen+%27frontpage%3A+True%27).""" in md
 
-    # @CTB FAIL:
-    # @CTB https not working? does http work? nope.
+    assert "\n[http://github.com/ctb/ribbity](http://github.com/ctb/ribbity) at beginning" in md
+    assert "\n[http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)\n" in md
+    assert "\n[https://github.com/ctb/ribbity](https://github.com/ctb/ribbity)\n" in md
+    assert "at end: [http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)" in md
 
 
 def test_markdown_issue9():
