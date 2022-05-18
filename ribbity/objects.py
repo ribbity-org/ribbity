@@ -80,6 +80,10 @@ class Issue:
         return self.config.get('frontpage', False)
 
     @property
+    def is_ignored(self):
+        return self.config.get('ignore', False)
+
+    @property
     def priority(self):
         return self.config.get('priority', DEFAULT_ISSUE_PRIORITY)
 

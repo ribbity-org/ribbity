@@ -89,7 +89,7 @@ def test_pull_issue3_basic():
 
 
 def test_pull_issue6_basic_properties():
-    # test object contents for issue 5, title rewriting and no toml config.
+    # test object contents for issue 6, title/index rewriting and no toml
     issue = get_issue_by_number(6)
 
     assert issue.number == 6
@@ -105,6 +105,17 @@ def test_pull_issue6_basic_properties():
     # properly represented in issue object with defaults?
     assert not issue.is_frontpage
     assert issue.priority == 999
+
+
+def test_pull_issue10_basic_properties():
+    # test object contents for issue 10, ignored
+    issue = get_issue_by_number(10)
+
+    assert issue.number == 10
+    assert issue.is_ignored
+
+    assert not os.path.exists(path_to('../docs',
+                                      '10-test-ignore-functionality.md'))
 
 
 def test_markdown_issue1():
@@ -150,6 +161,9 @@ def test_markdown_index_examples():
     assert '[Example: test `other` things!](6-test-other-things.md)' not in index_md
     assert '[Example: test `other` things!](6-test-other-things.md)' in examples_md
 
+    # issue 10 not in anything
+    assert not '10-test-ignore-functionality.md)' in examples_md
+
 
 def test_markdown_issue7():
     # look at issue7, with labels
@@ -169,8 +183,10 @@ def test_markdown_issue8():
     assert '## Categories' not in md
     assert """in a [markdown link](https://github.com/sourmash-bio/sourmash-examples/issues?q=is%3Aissue+is%3Aopen+%27frontpage%3A+True%27).""" in md
 
-    # @CTB FAIL:
-    # @CTB https not working? does http work? nope.
+    assert "\n[http://github.com/ctb/ribbity](http://github.com/ctb/ribbity) at beginning" in md
+    assert "\n[http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)\n" in md
+    assert "\n[https://github.com/ctb/ribbity](https://github.com/ctb/ribbity)\n" in md
+    assert "at end: [http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)" in md
 
 
 def test_markdown_issue9():

@@ -34,11 +34,17 @@ def rewrite_internal_links(body, issues_by_number, github_repo):
 
 def make_links_clickable(body):
     # from https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
-    pattern = '^\(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+'
+    # match links not already in a (...) markdown block, and/or links at
+    # very beginning of text.
+    pattern = '([^\(]|^)(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)'
 
     def repl(m):
-        match_str = body[m.start():m.end()]
-        link = f"[{match_str}]({match_str})"
+        # group 1 will be leading whitespace, if any
+        # group 2 will be matching URL
+        leading, match_url = m.groups()
+
+        # leave leading white space in, but before link [] starts.
+        link = f"{leading}[{match_url}]({match_url})"
         return link
 
     body = re.sub(pattern, repl, body)
@@ -60,6 +66,15 @@ def main(configfile):
         issues_list = load(fp)
 
     print(f"loaded {len(issues_list)} issues from '{issues_dump}'")
+
+    # handle ignored
+    new_issues_list = [ ix for ix in issues_list if not ix.is_ignored ]
+    if len(new_issues_list) != issues_list:
+        print(f"ignored {len(issues_list) - len(new_issues_list)} issues because 'ignore = true' was set",
+              file=sys.stderr)
+        issues_list = new_issues_list
+
+    del new_issues_list
 
     with contextlib.suppress(FileExistsError):
         os.mkdir('docs')

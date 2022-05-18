@@ -38,8 +38,12 @@ setup(
         "setuptools_scm_git_archive",
     ],
     use_scm_version={"write_to": "ribbity/version.py"},
-# @CTB expand
-    install_requires=["click"],
+    install_requires=["click",
+                      "pygithub",
+                      "mkdocs",
+                      "tomli",
+                      "jinja2",
+                      "pyyaml"],
     long_description=long_description,
     long_description_content_type="text/markdown",
 )
