@@ -18,6 +18,12 @@ refinements -
 
 longer-term:
 - consider references to content, e.g. issue: content is over <here>
+- make templates directory location configurable
+
+ribbity docs/examples to add:
+- Github auth
+- issue template example (and/or make a template repo?)
+- discuss site-specific templates for e.g. index.md
 
 ARGUMENTS for using github issues:
 - forward and reverse links between issues
