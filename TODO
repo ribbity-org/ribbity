@@ -1,8 +1,8 @@
 updates:
 * example page: add links to related examples.
 * quickstart docs
-* ignore this page (in indices? overall?)
 * fix http links thing
+* add rm docs?
 
 explore:
 - fix favico
@@ -14,6 +14,7 @@ refinements -
 - github actions on sourmash examples?
 - add README flair / pypi etc
 - github actions
+- template repo
 
 longer-term:
 - consider references to content, e.g. issue: content is over <here>

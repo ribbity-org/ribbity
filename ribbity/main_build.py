@@ -61,6 +61,15 @@ def main(configfile):
 
     print(f"loaded {len(issues_list)} issues from '{issues_dump}'")
 
+    # handle ignored
+    new_issues_list = [ ix for ix in issues_list if not ix.is_ignored ]
+    if len(new_issues_list) != issues_list:
+        print(f"ignored {len(issues_list) - len(new_issues_list)} issues because 'ignore = true' was set",
+              file=sys.stderr)
+        issues_list = new_issues_list
+
+    del new_issues_list
+
     with contextlib.suppress(FileExistsError):
         os.mkdir('docs')
         print("created 'docs/' subdirectory", file=sys.stderr)
