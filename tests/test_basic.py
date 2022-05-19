@@ -187,6 +187,7 @@ def test_markdown_issue8():
     assert "\n[http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)\n" in md
     assert "\n[https://github.com/ctb/ribbity](https://github.com/ctb/ribbity)\n" in md
     assert "at end: [http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)" in md
+    assert 'src="https://user-images.githubusercontent.com/51016' in md
 
 
 def test_markdown_issue9():
