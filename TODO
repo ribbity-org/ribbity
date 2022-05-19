@@ -1,7 +1,6 @@
 updates:
 * example page: add links to related examples.
 * quickstart docs
-* fix http links thing
 * add rm docs?
 
 explore:
@@ -22,6 +21,7 @@ longer-term:
 
 ribbity docs/examples to add:
 - issue template example (and/or make a template repo?)
+- adding your own page
 
 ARGUMENTS for using github issues:
 - forward and reverse links between issues
