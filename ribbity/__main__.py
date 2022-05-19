@@ -1,7 +1,9 @@
 """
 Command-line interface.
 """
+import sys
 import click
+
 from .main_pull import main as main_pull
 from .main_build import main as main_build
 
@@ -27,8 +29,10 @@ def build(configfile):
 @click.argument("configfile", default="site-config.toml")
 def do(configfile):
     "pull and build"
+    print("ribbity do: running 'pull'", file=sys.stderr)
     retval = main_pull(configfile)
     if not retval:
+        print("ribbity do: running 'build'", file=sys.stderr)
         return main_build(configfile)
     else:
         return retval

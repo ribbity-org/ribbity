@@ -1,13 +1,13 @@
 updates:
 * example page: add links to related examples.
 * quickstart docs
-* fix http links thing
 * add rm docs?
+* tests with saved dmp, live tests
 
 explore:
 - fix favico
 - comments? link directly, and/or provide count?
-- provide tools for reverse linking into external md documents (e.g. sourmash docs)
+- provide tools for reverse linking into external md documents (e.g. sourmash docs) - scanning docs, etc.
 
 refinements -
 - link to users with @
@@ -18,6 +18,11 @@ refinements -
 
 longer-term:
 - consider references to content, e.g. issue: content is over <here>
+- make templates directory location configurable
+
+ribbity docs/examples to add:
+- issue template example (and/or make a template repo?)
+- adding your own page
 
 ARGUMENTS for using github issues:
 - forward and reverse links between issues
