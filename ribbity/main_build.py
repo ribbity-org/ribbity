@@ -36,7 +36,7 @@ def make_links_clickable(body):
     # from https://stackoverflow.com/questions/6038061/regular-expression-to-find-urls-within-a-string
     # match links not already in a (...) markdown block, and/or links at
     # very beginning of text.
-    pattern = '([^\(]|^)(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)'
+    pattern = '([^\("]|^)(http[s]?://(?:[a-zA-Z]|[0-9]|[$-_@.&+]|[!*\(\),]|(?:%[0-9a-fA-F][0-9a-fA-F]))+)'
 
     def repl(m):
         # group 1 will be leading whitespace, if any
