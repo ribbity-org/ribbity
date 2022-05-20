@@ -4,3 +4,4 @@ tomli
 jinja2
 pyyaml
 click
+pytest
