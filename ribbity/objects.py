@@ -35,6 +35,7 @@ class Issue:
         "A unique filename that is filesystem-pleasant: special char removed."
         title = re.sub('[^A-Za-z0-9. ]+', '', self.title)
         title = title.replace(' ', '-')
+        title = title.lower()
         filename = f"{self.number}-{title}.md"
         return filename
 

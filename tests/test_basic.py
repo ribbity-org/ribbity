@@ -110,12 +110,12 @@ def test_pull_issue3_basic():
     issue = get_issue_by_number(3)
 
     assert issue.number == 3
-    assert issue.title == 'test toml config'
+    assert issue.title == 'test TOML config'
     assert 'this example should show up front' in issue.body, (issue.body,)
     assert not issue.labels
-    assert issue.output_title == 'Example: test toml config'
+    assert issue.output_title == 'Example: test TOML config'
     assert issue.output_filename == '3-test-toml-config.md'
-    assert issue.index_title == 'Example: test toml config'
+    assert issue.index_title == 'Example: test TOML config'
 
     # properly parsed TOML?
     assert len(issue.config) == 2
@@ -169,7 +169,7 @@ def test_markdown_issue1():
 def test_markdown_issue3():
     # look at issue3 markdown output - unexceptional stuff.
     md = load_md('3-test-toml-config.md')
-    assert md.startswith('# Example: test toml config')
+    assert md.startswith('# Example: test TOML config')
     assert 'this example should show up front page' in md
 
     assert '*[ctb/ribbity-test-repo#3](https://github.com/ctb/ribbity-test-repo/issues/3)*' in md
@@ -193,8 +193,8 @@ def test_markdown_index_examples():
     assert '[Example: test issue number 1](1-test-issue-number-1.md)' in examples_md
 
     # issue 3 in both
-    assert '[Example: test toml config](3-test-toml-config.md)' in index_md
-    assert '[Example: test toml config](3-test-toml-config.md)' in examples_md
+    assert '[Example: test TOML config](3-test-toml-config.md)' in index_md
+    assert '[Example: test TOML config](3-test-toml-config.md)' in examples_md
 
     # issue 6 only in full list
     assert '[Example: test `other` things!](6-test-other-things.md)' not in index_md
