@@ -234,3 +234,5 @@ def test_markdown_issue9():
     md = load_md('9-this-issue-refers-to-another-issue.md')
 
     assert "is [Example: issue with labels!](7-issue-with-labels.md)" in md
+
+    assert 0
