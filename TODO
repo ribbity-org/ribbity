@@ -15,6 +15,7 @@ refinements -
 - github actions on sourmash examples?
 - add README flair / pypi etc
 - template repo - figure out how to refer to current repo in ribbity?
+- add link checker to main ribbity CLI?
 
 longer-term:
 - consider references to content, e.g. issue: content is over <here>
