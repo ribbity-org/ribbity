@@ -3,6 +3,7 @@ updates:
 * quickstart docs
 * add rm docs?
 * tests with saved dmp, live tests
+* don't touch verbatim
 
 explore:
 - fix favico
