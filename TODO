@@ -3,7 +3,7 @@ updates:
 * quickstart docs
 * add rm docs?
 * tests with live site?
-* don't touch verbatim
+* don't touch verbatim / switch to markdown parser
 
 explore:
 - fix favico
