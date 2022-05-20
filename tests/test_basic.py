@@ -163,7 +163,7 @@ def test_markdown_issue1():
     assert md.startswith('# Example: test issue number 1')
     assert 'this is a test' in md
 
-    assert '[ctb/ribbity-test-repo#1](https://github.com/ctb/ribbity-test-repo/issues/1)' in md
+    assert '[ribbity-org/ribbity-test-repo#1](https://github.com/ribbity-org/ribbity-test-repo/issues/1)' in md
 
 
 def test_markdown_issue3():
@@ -172,7 +172,7 @@ def test_markdown_issue3():
     assert md.startswith('# Example: test TOML config')
     assert 'this example should show up front page' in md
 
-    assert '*[ctb/ribbity-test-repo#3](https://github.com/ctb/ribbity-test-repo/issues/3)*' in md
+    assert '*[ribbity-org/ribbity-test-repo#3](https://github.com/ribbity-org/ribbity-test-repo/issues/3)*' in md
 
 
 def test_markdown_issue6():
@@ -222,10 +222,10 @@ def test_markdown_issue8():
     assert '## Categories' not in md
     assert """in a [markdown link](https://github.com/sourmash-bio/sourmash-examples/issues?q=is%3Aissue+is%3Aopen+%27frontpage%3A+True%27).""" in md
 
-    assert "\n[http://github.com/ctb/ribbity](http://github.com/ctb/ribbity) at beginning" in md
-    assert "\n[http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)\n" in md
-    assert "\n[https://github.com/ctb/ribbity](https://github.com/ctb/ribbity)\n" in md
-    assert "at end: [http://github.com/ctb/ribbity](http://github.com/ctb/ribbity)" in md
+    assert "\n[http://github.com/ribbity-org/ribbity](http://github.com/ribbity-org/ribbity) at beginning" in md
+    assert "\n[http://github.com/ribbity-org/ribbity](http://github.com/ribbity-org/ribbity)\n" in md
+    assert "\n[https://github.com/ribbity-org/ribbity](https://github.com/ribbity-org/ribbity)\n" in md
+    assert "at end: [http://github.com/ribbity-org/ribbity](http://github.com/ribbity-org/ribbity)" in md
     assert 'src="https://user-images.githubusercontent.com/51016' in md
 
 
