@@ -46,7 +46,7 @@ def path_to(*p):
 
 
 def load_md(filename):
-    with open(path_to('../docs', filename), 'rt') as fp:
+    with open(path_to(_testdir, 'docs', filename), 'rt') as fp:
         md = fp.read()
     return md
 

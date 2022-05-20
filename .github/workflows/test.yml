@@ -1,0 +1,46 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-20.04]
+        python: [3.9]
+
+    name: Python on ${{ matrix.python }}
+
+    # We want to run on external PRs, but not on our own internal PRs as they'll be run by the push to the branch.
+    if: github.event_name == 'push' || github.event.pull_request.head.repo.full_name != github.repository
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python ${{ matrix.python }}
+        uses: actions/setup-python@v1
+        with:
+          python-version: ${{ matrix.python }}
+
+      - run: pip install -U pip setuptools
+
+#      - name: Install coverage dependencies
+#        run: pip install pytest-cov
+
+      - name: Build
+        run: python setup.py build_ext --inplace
+
+      - name: Install ribbity
+        run: pip install -e .
+
+#      - name: Install ribbity test deps
+#        run: pip install -e .[test]
+
+      - run: pytest tests
+
+#      - run: pytest tests --cov=.
+
+#      - name: Upload coverage to Codecov
+#        uses: codecov/codecov-action@v1
