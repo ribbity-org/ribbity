@@ -2,7 +2,7 @@ updates:
 * example page: add links to related examples.
 * quickstart docs
 * add rm docs?
-* tests with saved dmp, live tests
+* tests with live site?
 * don't touch verbatim
 
 explore:
@@ -14,8 +14,7 @@ refinements -
 - link to users with @
 - github actions on sourmash examples?
 - add README flair / pypi etc
-- github actions
-- template repo
+- template repo - figure out how to refer to current repo in ribbity?
 
 longer-term:
 - consider references to content, e.g. issue: content is over <here>
