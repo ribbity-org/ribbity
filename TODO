@@ -1,48 +1,8 @@
-updates:
-* example page: add links to related examples.
-* quickstart docs
-* add rm docs?
-* tests with live site?
-* don't touch verbatim / switch to markdown parser (marko?)
-
-explore:
-- fix favico
-- comments? link directly, and/or provide count?
-- provide tools for reverse linking into external md documents (e.g. sourmash docs) - scanning docs, etc.
-
 refinements -
-- link to users with @
-- github actions on sourmash examples?
 - add README flair / pypi etc
-- template repo - figure out how to refer to current repo in ribbity?
-- add link checker to main ribbity CLI?
-
-longer-term:
-- consider references to content, e.g. issue: content is over <here>
-- make templates directory location configurable
-
-ribbity docs/examples to add:
-- issue template example (and/or make a template repo?)
-- adding your own page
-
-ARGUMENTS for using github issues:
-- forward and reverse links between issues
-- linking between issues and PRs in different repositories
-- robust commenting on issues
-- good auth/moderation/contribution on github
-- label API is nice
-- markdown formatting is nice
-- can use github editor for quick examples, hackmd for longer ones
-see also https://angeliqueweger.com/blog/2021/love-letter-to-lftm/
-- enables the "pull request hack" but with out PRs!
-- viz utterances
-
-Additional sourmash examples:
-- creating conda environment
-- limiting search results with include
-- sig grep
-- sig summarize
+- add LICENSE
 
 Ideas!!
 - newsletters/weekly/dated
 - building lesson plans out of foo
+- trust metric overlay

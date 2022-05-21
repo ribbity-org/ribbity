@@ -8,3 +8,4 @@ __pycache__
 ribbity.egg-info/
 .eggs
 dist
+ribbity/version.py
