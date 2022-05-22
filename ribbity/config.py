@@ -3,7 +3,8 @@ import tomli
 
 DEFAULTS = dict(
     site_dir = 'site',
-    docs_dir = 'docs'
+    docs_dir = 'docs',
+    site_templates = 'site-templates'
 )
 
 class RibbityConfig:

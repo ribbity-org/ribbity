@@ -12,7 +12,7 @@ class Piggy:
 
     def _init_jinja2(self):
         "Initialize jinja2 template loading."
-        site_loader = FileSystemLoader("site-templates")
+        site_loader = FileSystemLoader(self.config.site_templates)
         pkg_loader = PackageLoader("ribbity")
         env = Environment(
             loader = ChoiceLoader([site_loader, pkg_loader])

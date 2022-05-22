@@ -21,6 +21,11 @@ def module_setup_teardown():
 
         shutil.copy(path_to('..', 'ribbity-test.dmp'), _testdir)
         shutil.copy(path_to('..', 'config-test.toml'), _testdir)
+        shutil.copytree(path_to('test-files', 'site-templates.test'),
+                        os.path.join(_testdir,
+                                     'tests',
+                                     'test-files',
+                                     'site-templates.test'))
 
         cwd = os.getcwd()
         os.chdir(_testdir)
@@ -243,3 +248,10 @@ def test_markdown_issue9():
     md = load_md('9-this-issue-refers-to-another-issue.md')
 
     assert "is [Example: issue with labels!](7-issue-with-labels.md)" in md
+
+
+def test_extra_page():
+    # look at a-page.md
+    md = load_md('a-page.md')
+    assert md.startswith("# a nifty test page!!")
+    assert "this page is an extra page." in md
