@@ -1,3 +1,5 @@
+{# receives 'issues_list', 'labels_to_issues', and 'piggy' #}
+
 # Welcome to the {site_name}!
 
 This page is made from a generic jinja2 template that comes with ribbity.

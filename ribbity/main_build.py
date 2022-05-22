@@ -10,8 +10,18 @@ from pickle import load
 import yaml
 import tomli
 from collections import defaultdict
+import shutil
 
 from ribbity.render import render_md
+from ribbity.version import version
+
+
+class Piggy:
+    "A container object to be passed into jinja2 render as 'piggy'."
+    def __init__(self, issues_list, labels_to_issues, config_d):
+        self.config = config_d
+        self.issues_list = issues_list
+        self.labels_to_issues = labels_to_issues
 
 
 def rewrite_internal_links(body, issues_by_number, github_repo):
@@ -56,6 +66,9 @@ def main(configfile):
     with open(configfile, "rb") as fp:
         config_d = tomli.load(fp)
 
+    print(f"== ribbity v{version} build - config file {configfile} ==\n",
+          file=sys.stderr)
+
     github_repo = config_d['github_repo']
     assert not github_repo.startswith('http')
     github_repo = github_repo.strip('/')
@@ -76,9 +89,12 @@ def main(configfile):
 
     del new_issues_list
 
-    with contextlib.suppress(FileExistsError):
-        os.mkdir('docs')
-        print("created 'docs/' subdirectory", file=sys.stderr)
+    with contextlib.suppress(FileNotFoundError):
+        shutil.rmtree('./docs/')
+        print("removed existing 'docs/' subdirectory", file=sys.stderr)
+
+    os.mkdir('docs')
+    print("created 'docs/' subdirectory", file=sys.stderr)
 
     # organize issues and labels
     labels_to_issues = defaultdict(list)
@@ -89,6 +105,9 @@ def main(configfile):
         for label in issue.labels:
             labels_to_issues[label].append(issue)
 
+    # build piggy object
+    piggy_obj = Piggy(issues_list, labels_to_issues, config_d)
+
     # now, output all issues:
     for issue in issues_list:
         filename = issue.output_filename
@@ -98,7 +117,7 @@ def main(configfile):
 
         with open("docs/" + filename, "wt") as fp:
             md = render_md("_generic_issue.md",
-                           dict(issue=issue, body=body, **config_d))
+                           dict(issue=issue, body=body, piggy=piggy_obj))
             fp.write(md)
         print(f'wrote to {filename}', end='\r', file=sys.stderr)
 
@@ -108,7 +127,7 @@ def main(configfile):
         with open('docs/' + label_filename, "wt") as fp:
             md = render_md("_generic_label.md",
                            dict(label=label, issues_for_label=issues_for_label,
-                                **config_d))
+                                piggy=piggy_obj))
             fp.write(md)
         print(f"wrote to {label_filename}", end='\r', file=sys.stderr)
 
@@ -131,7 +150,7 @@ def main(configfile):
     issues_list.sort()
     render_variables = dict(issues_list=issues_list,
                             labels_to_issues=labels_to_issues,
-                            **config_d)
+                            piggy=piggy_obj)
 
     ### render the pages explicitly requested
     for filename in config_d['add_pages']:
@@ -142,6 +161,8 @@ def main(configfile):
         with open(f"docs/{filename}", "wt") as fp:
             fp.write(md)
         print(f"built {filename}", file=sys.stderr, end='\r')
+
+    print("\nribbity is done!", file=sys.stderr)
 
     return 0
 

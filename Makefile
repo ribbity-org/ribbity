@@ -9,10 +9,11 @@ build:
 serve:
 	mkdocs serve
 
-deploy:
-	mkdocs gh-deploy
+pulltest:
+	ribbity pull config-test.toml
+	ribbity build config-test.toml
+	py.test tests
 
 test:
-	ribbity pull config-test.toml
 	ribbity build config-test.toml
 	py.test tests
