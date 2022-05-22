@@ -255,3 +255,5 @@ def test_extra_page():
     md = load_md('a-page.md')
     assert md.startswith("# a nifty test page!!")
     assert "this page is an extra page." in md
+
+    assert "first issue title: test TOML config" in md
