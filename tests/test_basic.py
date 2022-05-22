@@ -186,6 +186,12 @@ def test_markdown_issue6():
     assert '## Categories' not in md
 
 
+def test_markdown_index_title():
+    index_md = load_md('index.md')
+    print(index_md)
+    assert index_md.startswith('# Welcome to the ribbity test site!')
+
+
 def test_markdown_index_examples():
     # look at front page and examples
     index_md = load_md('index.md')

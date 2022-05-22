@@ -14,6 +14,7 @@ import shutil
 
 from ribbity.render import Piggy
 from ribbity.version import version
+from ribbity.config import RibbityConfig
 
 
 def rewrite_internal_links(body, issues_by_number, github_repo):
@@ -55,17 +56,16 @@ def make_links_clickable(body):
 
 def main(configfile):
     # load config
-    with open(configfile, "rb") as fp:
-        config_d = tomli.load(fp)
+    config = RibbityConfig.load(configfile)
 
     print(f"== ribbity v{version} build - config file {configfile} ==\n",
           file=sys.stderr)
 
-    github_repo = config_d['github_repo']
+    github_repo = config.github_repo
     assert not github_repo.startswith('http')
     github_repo = github_repo.strip('/')
 
-    issues_dump = config_d['issues_dump']
+    issues_dump = config.issues_dump
 
     with open(issues_dump, 'rb') as fp:
         issues_list = load(fp)
@@ -98,7 +98,7 @@ def main(configfile):
             labels_to_issues[label].append(issue)
 
     # build piggy object
-    piggy_obj = Piggy(issues_list, labels_to_issues, config_d)
+    piggy_obj = Piggy(issues_list, labels_to_issues, config)
 
     # now, output all issues:
     for issue in issues_list:
@@ -129,9 +129,12 @@ def main(configfile):
     nav_contents.append({'All categories': 'labels.md'})
 
     ## write mkdocs.yml
-    mkdocs_config = [dict(site_name=config_d['site_name']),
-                     dict(site_url=config_d['site_url']),
-                     dict(nav=nav_contents)]
+    mkdocs_config = [dict(site_name=config.site_name),
+                     dict(site_url=config.site_url),
+                     dict(nav=nav_contents),
+                     dict(use_directory_urls=False),
+                     dict(docs_dir=config.docs_dir),
+                     dict(site_dir=config.site_dir)]
     with open('mkdocs.yml', 'wt') as fp:
         for element in mkdocs_config:
             print(yaml.safe_dump(element), file=fp)
@@ -144,7 +147,7 @@ def main(configfile):
                             piggy=piggy_obj)
 
     ### render the pages explicitly requested
-    for filename in config_d['add_pages']:
+    for filename in config.add_pages:
         # load from ./pages/ and render with jinja2
         md = piggy_obj.render(filename, **render_variables)
 

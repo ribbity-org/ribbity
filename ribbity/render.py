@@ -23,6 +23,7 @@ class Piggy:
         "Render given template using 'vardict'. Adds 'piggy' object."
         render_d = dict(vardict)
         render_d['piggy'] = self
+        render_d['config'] = self.config
 
         template = self.env.get_template(template_name)
         return template.render(**render_d)
