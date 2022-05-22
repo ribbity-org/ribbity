@@ -12,16 +12,8 @@ import tomli
 from collections import defaultdict
 import shutil
 
-from ribbity.render import render_md
+from ribbity.render import Piggy
 from ribbity.version import version
-
-
-class Piggy:
-    "A container object to be passed into jinja2 render as 'piggy'."
-    def __init__(self, issues_list, labels_to_issues, config_d):
-        self.config = config_d
-        self.issues_list = issues_list
-        self.labels_to_issues = labels_to_issues
 
 
 def rewrite_internal_links(body, issues_by_number, github_repo):
@@ -116,8 +108,7 @@ def main(configfile):
         body = make_links_clickable(body)
 
         with open("docs/" + filename, "wt") as fp:
-            md = render_md("_generic_issue.md",
-                           dict(issue=issue, body=body, piggy=piggy_obj))
+            md = piggy_obj.render("_generic_issue.md", issue=issue, body=body)
             fp.write(md)
         print(f'wrote to {filename}', end='\r', file=sys.stderr)
 
@@ -125,9 +116,9 @@ def main(configfile):
     for label, issues_for_label in labels_to_issues.items():
         label_filename = label.output_filename
         with open('docs/' + label_filename, "wt") as fp:
-            md = render_md("_generic_label.md",
-                           dict(label=label, issues_for_label=issues_for_label,
-                                piggy=piggy_obj))
+            md = piggy_obj.render("_generic_label.md",
+                                  label=label,
+                                  issues_for_label=issues_for_label)
             fp.write(md)
         print(f"wrote to {label_filename}", end='\r', file=sys.stderr)
 
@@ -155,7 +146,7 @@ def main(configfile):
     ### render the pages explicitly requested
     for filename in config_d['add_pages']:
         # load from ./pages/ and render with jinja2
-        md = render_md(filename, render_variables)
+        md = piggy_obj.render(filename, **render_variables)
 
         # save to ./docs/
         with open(f"docs/{filename}", "wt") as fp:
