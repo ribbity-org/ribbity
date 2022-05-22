@@ -1,6 +1,7 @@
+{# receives 'issue', 'body', and 'piggy' #}
 # {{issue.output_title}}
 
-*[{{github_repo}}#{{issue.number}}](https://github.com/{{github_repo}}/issues/{{issue.number}})*
+*[{{piggy.config.github_repo}}#{{issue.number}}](https://github.com/{{piggy.config.github_repo}}/issues/{{issue.number}})*
 
 ---
 

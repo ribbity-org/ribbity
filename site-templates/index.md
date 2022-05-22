@@ -1,4 +1,4 @@
-# Welcome to the {{site_name}}!
+# Welcome to the {{config.site_name}}!
 
 These are the [ribbity](https://github.com/ctb/ribbity) in-development
 docs. They may not be functional or entirely correct.

@@ -10,8 +10,11 @@ from pickle import load
 import yaml
 import tomli
 from collections import defaultdict
+import shutil
 
-from ribbity.render import render_md
+from ribbity.render import Piggy
+from ribbity.version import version
+from ribbity.config import RibbityConfig
 
 
 def rewrite_internal_links(body, issues_by_number, github_repo):
@@ -53,14 +56,16 @@ def make_links_clickable(body):
 
 def main(configfile):
     # load config
-    with open(configfile, "rb") as fp:
-        config_d = tomli.load(fp)
+    config = RibbityConfig.load(configfile)
 
-    github_repo = config_d['github_repo']
+    print(f"== ribbity v{version} build - config file {configfile} ==\n",
+          file=sys.stderr)
+
+    github_repo = config.github_repo
     assert not github_repo.startswith('http')
     github_repo = github_repo.strip('/')
 
-    issues_dump = config_d['issues_dump']
+    issues_dump = config.issues_dump
 
     with open(issues_dump, 'rb') as fp:
         issues_list = load(fp)
@@ -76,9 +81,12 @@ def main(configfile):
 
     del new_issues_list
 
-    with contextlib.suppress(FileExistsError):
-        os.mkdir('docs')
-        print("created 'docs/' subdirectory", file=sys.stderr)
+    with contextlib.suppress(FileNotFoundError):
+        shutil.rmtree('./docs/')
+        print("removed existing 'docs/' subdirectory", file=sys.stderr)
+
+    os.mkdir('docs')
+    print("created 'docs/' subdirectory", file=sys.stderr)
 
     # organize issues and labels
     labels_to_issues = defaultdict(list)
@@ -89,6 +97,9 @@ def main(configfile):
         for label in issue.labels:
             labels_to_issues[label].append(issue)
 
+    # build piggy object
+    piggy_obj = Piggy(issues_list, labels_to_issues, config)
+
     # now, output all issues:
     for issue in issues_list:
         filename = issue.output_filename
@@ -97,8 +108,7 @@ def main(configfile):
         body = make_links_clickable(body)
 
         with open("docs/" + filename, "wt") as fp:
-            md = render_md("_generic_issue.md",
-                           dict(issue=issue, body=body, **config_d))
+            md = piggy_obj.render("_generic_issue.md", issue=issue, body=body)
             fp.write(md)
         print(f'wrote to {filename}', end='\r', file=sys.stderr)
 
@@ -106,9 +116,9 @@ def main(configfile):
     for label, issues_for_label in labels_to_issues.items():
         label_filename = label.output_filename
         with open('docs/' + label_filename, "wt") as fp:
-            md = render_md("_generic_label.md",
-                           dict(label=label, issues_for_label=issues_for_label,
-                                **config_d))
+            md = piggy_obj.render("_generic_label.md",
+                                  label=label,
+                                  issues_for_label=issues_for_label)
             fp.write(md)
         print(f"wrote to {label_filename}", end='\r', file=sys.stderr)
 
@@ -119,9 +129,12 @@ def main(configfile):
     nav_contents.append({'All categories': 'labels.md'})
 
     ## write mkdocs.yml
-    mkdocs_config = [dict(site_name=config_d['site_name']),
-                     dict(site_url=config_d['site_url']),
-                     dict(nav=nav_contents)]
+    mkdocs_config = [dict(site_name=config.site_name),
+                     dict(site_url=config.site_url),
+                     dict(nav=nav_contents),
+                     dict(use_directory_urls=False),
+                     dict(docs_dir=config.docs_dir),
+                     dict(site_dir=config.site_dir)]
     with open('mkdocs.yml', 'wt') as fp:
         for element in mkdocs_config:
             print(yaml.safe_dump(element), file=fp)
@@ -131,17 +144,19 @@ def main(configfile):
     issues_list.sort()
     render_variables = dict(issues_list=issues_list,
                             labels_to_issues=labels_to_issues,
-                            **config_d)
+                            piggy=piggy_obj)
 
     ### render the pages explicitly requested
-    for filename in config_d['add_pages']:
+    for filename in config.add_pages:
         # load from ./pages/ and render with jinja2
-        md = render_md(filename, render_variables)
+        md = piggy_obj.render(filename, **render_variables)
 
         # save to ./docs/
         with open(f"docs/{filename}", "wt") as fp:
             fp.write(md)
         print(f"built {filename}", file=sys.stderr, end='\r')
+
+    print("\nribbity is done!", file=sys.stderr)
 
     return 0
 
