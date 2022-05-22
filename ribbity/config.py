@@ -13,7 +13,7 @@ class RibbityConfig:
         self.config_d = config_d
 
     def __getattr__(self, name):
-        "Provide access to all contents of 'config_d' + DEAFUTLS default"
+        "Provide access to all contents of 'config_d' + DEFAULTS default vals"
         if name in self.config_d:
             return self.config_d.get(name)
 
@@ -23,6 +23,7 @@ class RibbityConfig:
         raise AttributeError(name)
 
     def get(self, name, default=None):
+        "Provide access to contents of 'config_d' + DEFAULTS, w/add'l def val."
         try:
             x = self.__getattr__(name)
             return x
