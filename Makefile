@@ -17,3 +17,7 @@ pulltest:
 test:
 	ribbity build config-test.toml
 	py.test tests
+
+update_output:
+	ribbity build output_docs/config-test.toml
+	ribbity build output_docs/config-alt.toml
