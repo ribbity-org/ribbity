@@ -11,18 +11,17 @@ import tomli
 
 from github import Github
 from ribbity import objects
+from ribbity.config import RibbityConfig
 
 
 def main(configfile):
     # load config
-    with open(configfile, "rb") as fp:
-        config_d = tomli.load(fp)
+    config = RibbityConfig.load(configfile)
 
-    github_repo = config_d['github_repo']
-    issues_dump = config_d['issues_dump']
-        
+    github_repo = config.github_repo
+    issues_dump = config.issues_dump
+    github_username = config.get('github_username', "")
 
-    github_username = config_d.get('github_username')
     if github_username:
         auth_token = os.environ.get('RIBBITY_GH_TOKEN')
         if auth_token:

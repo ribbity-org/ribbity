@@ -14,14 +14,22 @@ class RibbityConfig:
 
     def __getattr__(self, name):
         "Provide access to all contents of 'config_d' + DEAFUTLS default"
-        try:
-            if name in self.config_d:
-                return self.config_d.get(name)
+        if name in self.config_d:
+            return self.config_d.get(name)
 
-            if name in DEFAULTS:
-                return DEFAULTS[name]
-        except KeyError:
-            raise AttributeError(name)
+        if name in DEFAULTS:
+            return DEFAULTS[name]
+
+        raise AttributeError(name)
+
+    def get(self, name, default=None):
+        try:
+            x = self.__getattr__(name)
+            return x
+        except AttributeError:
+            pass
+
+        return default
         
     @classmethod
     def load(cls, filename):
