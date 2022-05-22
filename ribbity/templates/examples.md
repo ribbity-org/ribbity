@@ -6,6 +6,6 @@
 
 {% for issue in issues_list %}
 
-[Example: {{issue.title}}]({{issue.output_filename}})
+[{{config.issue_title_prefix}}{{issue.title}}]({{issue.output_filename}})
 
 {% endfor %}

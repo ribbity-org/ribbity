@@ -13,7 +13,7 @@ Make a copy, put it in `./site-templates`, and edit it for your own project!
 {% for issue in issues_list %}
 {% if issue.is_frontpage %}
 
-[Example: {{issue.title}}]({{issue.output_filename}})
+[{{config.issue_title_prefix}}{{issue.title}}]({{issue.output_filename}})
 
 {% endif %}
 {% endfor %}

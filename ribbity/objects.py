@@ -40,15 +40,10 @@ class Issue:
         return filename
 
     @property
-    def output_title(self):
-        "A title with prefix 'Example: '"
-        return f"Example: {self.title}"
-
-    @property
     def index_title(self):
         "A title suitable for indexes - no special characters/formatting"
         title = re.sub('[^A-Za-z0-9._ ]+', '', self.title)
-        return f"Example: {title}"
+        return title
 
     @property
     def config(self):
