@@ -17,8 +17,8 @@ from ribbity.version import version
 from ribbity.config import RibbityConfig
 
 
-def rewrite_internal_links(body, issues_by_number, github_repo):
-    url = re.escape(f'https://github.com/{github_repo}/issues/')
+def rewrite_internal_links(body, issues_by_number, config):
+    url = re.escape(f'https://github.com/{config.github_repo}/issues/')
     pattern = f"{url}(\\d+)"
 
     # find and rewrite all internal links:
@@ -28,7 +28,7 @@ def rewrite_internal_links(body, issues_by_number, github_repo):
         match_num = int(match_num)
         match_issue = issues_by_number[match_num]
         
-        link = f"[{match_issue.output_title}]({match_issue.output_filename})"
+        link = f"[{config.issue_title_prefix}{match_issue.title}]({match_issue.output_filename})"
         body = body[:m.start()] + link + body[m.end():]
         m = re.search(pattern, body)
 
@@ -82,11 +82,11 @@ def main(configfile):
     del new_issues_list
 
     with contextlib.suppress(FileNotFoundError):
-        shutil.rmtree('./docs/')
-        print("removed existing 'docs/' subdirectory", file=sys.stderr)
+        shutil.rmtree(config.docs_dir)
+        print(f"removed existing '{config.docs_dir}' subdirectory", file=sys.stderr)
 
-    os.mkdir('docs')
-    print("created 'docs/' subdirectory", file=sys.stderr)
+    os.mkdir(config.docs_dir)
+    print(f"created '{config.docs_dir}' subdirectory", file=sys.stderr)
 
     # organize issues and labels
     labels_to_issues = defaultdict(list)
@@ -104,18 +104,19 @@ def main(configfile):
     for issue in issues_list:
         filename = issue.output_filename
 
-        body = rewrite_internal_links(issue.body, issues_by_number, github_repo)
+        body = rewrite_internal_links(issue.body, issues_by_number, config)
         body = make_links_clickable(body)
 
-        with open("docs/" + filename, "wt") as fp:
+        filepath = os.path.join(config.docs_dir, filename)
+        with open(filepath, "wt") as fp:
             md = piggy_obj.render("_generic_issue.md", issue=issue, body=body)
             fp.write(md)
-        print(f'wrote to {filename}', end='\r', file=sys.stderr)
+        print(f'wrote to {filepath}', end='\r', file=sys.stderr)
 
     # output all labels:
     for label, issues_for_label in labels_to_issues.items():
-        label_filename = label.output_filename
-        with open('docs/' + label_filename, "wt") as fp:
+        label_filename = os.path.join(config.docs_dir, label.output_filename)
+        with open(label_filename, "wt") as fp:
             md = piggy_obj.render("_generic_label.md",
                                   label=label,
                                   issues_for_label=issues_for_label)
@@ -151,10 +152,11 @@ def main(configfile):
         # load from ./pages/ and render with jinja2
         md = piggy_obj.render(filename, **render_variables)
 
-        # save to ./docs/
-        with open(f"docs/{filename}", "wt") as fp:
+        # save to docs dir
+        filepath = os.path.join(config.docs_dir, filename)
+        with open(filepath, "wt") as fp:
             fp.write(md)
-        print(f"built {filename}", file=sys.stderr, end='\r')
+        print(f"built {filepath}", file=sys.stderr, end='\r')
 
     print("\nribbity is done!", file=sys.stderr)
 

@@ -1,6 +1,6 @@
-{# receives 'issues_list', 'labels_to_issues', and 'piggy' #}
 
-# Welcome to the {{config.site_name}}!
+
+# Welcome to the ribbity test site!
 
 This page is made from a generic jinja2 template that comes with ribbity.
 
@@ -10,13 +10,23 @@ Make a copy, put it in `./site-templates`, and edit it for your own project!
 
 ## Start here!
 
-{% for issue in issues_list %}
-{% if issue.is_frontpage %}
 
-[{{config.issue_title_prefix}}{{issue.title}}]({{issue.output_filename}})
 
-{% endif %}
-{% endfor %}
+
+[IssuePrefix: test TOML config](3-test-toml-config.md)
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ---
 
@@ -25,4 +35,3 @@ Make a copy, put it in `./site-templates`, and edit it for your own project!
 ---
 
 ## [All categories](labels.md)
-

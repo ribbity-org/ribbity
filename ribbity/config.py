@@ -4,7 +4,9 @@ import tomli
 DEFAULTS = dict(
     site_dir = 'site',
     docs_dir = 'docs',
-    site_templates = 'site-templates'
+    site_templates = 'site-templates',
+
+    issue_title_prefix = "Example: "
 )
 
 class RibbityConfig:
