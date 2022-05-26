@@ -254,3 +254,19 @@ def test_extra_page():
     assert "this page is an extra page." in md
 
     assert "first issue title: test TOML config" in md
+
+
+def test_rmdir():
+    # test that main_build builds a clean docs dir
+
+    # create FOO.txt in docs/
+    newfilename = os.path.join(_testdir, 'docs', 'FOO.txt')
+    with open(newfilename, 'wt') as fp:
+        print('hello, world', file=fp)
+
+    # build again
+    retval = main_build('config-test.toml')
+    assert retval == 0
+
+    # check - is 'newfilename' there?
+    assert not os.path.exists(newfilename)
