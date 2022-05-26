@@ -15,7 +15,7 @@ into [this site](https://sourmash-bio.github.io/sourmash-examples/).
 
 ## Project information
 
-You can see the introductory blog post here: [Announcing ribbity - a hacky project to build Web sites from GitHub issue trackers](http://ivory.idyll.org/blog/2022-announcing-ribbity-github-issue-munging.html)
+You can see the introductory blog post here: [Announcing ribbity - a hacky project to build Web sites from GitHub issue trackers](http://ivory.idyll.org/blog/2022-announcing-ribbity-github-issue-munging.html).
 
 tl;dr Ribbity turns GitHub issue trackers into mkdocs sites that can be
 hosted via GitHub pages.
