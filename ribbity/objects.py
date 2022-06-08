@@ -48,7 +48,7 @@ class Issue:
     @property
     def config(self):
         body = self.body
-        if '---' not in body:       # maybe use regexp ^---$?
+        if body is None or '---' not in body:       # maybe use regexp ^---$?
             return {}
 
         start = body.find('---')

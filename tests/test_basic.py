@@ -247,6 +247,13 @@ def test_markdown_issue9():
     assert "is [Example: issue with labels!](7-issue-with-labels.md)" in md
 
 
+def test_markdown_issue11_empty():
+    # issue 11 is empty
+    md = load_md('11-this-is-an-empty-issue-no-content-at-all.md')
+    md = md.strip()
+    assert md.endswith('---')
+
+
 def test_extra_page():
     # look at a-page.md
     md = load_md('a-page.md')

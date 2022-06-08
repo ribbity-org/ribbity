@@ -104,7 +104,11 @@ def main(configfile):
     for issue in issues_list:
         filename = issue.output_filename
 
-        body = rewrite_internal_links(issue.body, issues_by_number, config)
+        body = issue.body
+        if body is None:
+            body = ''
+
+        body = rewrite_internal_links(body, issues_by_number, config)
         body = make_links_clickable(body)
 
         filepath = os.path.join(config.docs_dir, filename)
