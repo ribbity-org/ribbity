@@ -44,7 +44,8 @@ setup(
                       "tomli",
                       "jinja2",
                       "pyyaml",
-                      "pytest"],
+                      "pytest",
+                      "markdown-it-py"],
     long_description=long_description,
     long_description_content_type="text/markdown",
 )

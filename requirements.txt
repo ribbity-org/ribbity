@@ -3,5 +3,6 @@ mkdocs
 tomli
 jinja2
 pyyaml
-click
+click>=8
 pytest
+markdown-it-py
