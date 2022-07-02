@@ -1,5 +1,12 @@
 """
-Parse and transform markdown.
+Parse and transform markdown. Currently uses markdown-it-py to get the
+paragraph level breakdown.
+
+This handles only a subset of the full Markdown syntax. The main thing
+we need to do is ignore links in verbatim fields, which works ok
+for triple-back-quote but does not work for four-space-indent blocks.
+
+We can revisit later. Promise.
 """
 import re
 
