@@ -229,6 +229,7 @@ def test_markdown_issue7():
 def test_markdown_issue8():
     # look at issue8, with labels
     md = load_md('8-what-happens-with-external-links.md')
+    print(md)
 
     assert '## Categories' not in md
     assert """in a [markdown link](https://github.com/sourmash-bio/sourmash-examples/issues?q=is%3Aissue+is%3Aopen+%27frontpage%3A+True%27).""" in md

@@ -12,6 +12,9 @@ import tomli
 from collections import defaultdict
 import shutil
 
+from markdown_it import MarkdownIt
+from markdown_it.tree import SyntaxTreeNode
+
 from ribbity.render import Piggy
 from ribbity.version import version
 from ribbity.config import RibbityConfig
@@ -108,8 +111,29 @@ def main(configfile):
         if body is None:
             body = ''
 
-        body = rewrite_internal_links(body, issues_by_number, config)
-        body = make_links_clickable(body)
+        #body = rewrite_internal_links(body, issues_by_number, config)
+        #body = make_links_clickable(body)
+
+        # do our own markdown parsing... very lightly.
+        parser = MarkdownIt("zero")
+        tokens = parser.parse(body)
+        node = SyntaxTreeNode(tokens)
+
+        # walk across just the top paragraphs
+        output = []
+        for x in node.children:
+            for n in x.walk():
+                print('T:', n.markup, n.type, n.tag)
+                if not n.children:
+                    content = n.content
+                    if content.startswith("```"):
+                        output.append(content)
+                    else:
+                        content = rewrite_internal_links(content, issues_by_number, config)
+                        content = make_links_clickable(content)
+                        output.append(content)
+
+        body = "\n\n".join(output)
 
         filepath = os.path.join(config.docs_dir, filename)
         with open(filepath, "wt") as fp:
