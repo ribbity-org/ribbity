@@ -5,3 +5,4 @@ jinja2
 pyyaml
 click>=8
 pytest
+markdown-it-py
