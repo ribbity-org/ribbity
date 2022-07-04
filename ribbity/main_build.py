@@ -41,6 +41,21 @@ def main(configfile):
               file=sys.stderr)
         issues_list = new_issues_list
 
+    # handle exclude
+    if config.exclude_labels:
+        exclude_labels = set(config.exclude_labels)
+        new_issues_list = []
+        for ix in issues_list:
+            ix_labels = set(( l.name for l in ix.labels ))
+            if not exclude_labels & ix_labels:
+                new_issues_list.append(ix)
+
+        if len(new_issues_list) != issues_list:
+            print(f"excluded {len(issues_list) - len(new_issues_list)} issues because of excluded labels",
+                  file=sys.stderr)
+            issues_list = new_issues_list
+
+
     del new_issues_list
 
     with contextlib.suppress(FileNotFoundError):

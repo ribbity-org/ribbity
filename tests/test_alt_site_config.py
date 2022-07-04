@@ -12,6 +12,9 @@ from ribbity.main_build import main as main_build
 _testdir = None
 
 
+from test_basic import get_issue_by_number
+
+
 @pytest.fixture(autouse=True, scope='module')
 def module_setup_teardown():
     global _testdir
@@ -60,6 +63,17 @@ def load_md(filename):
     return md
 
 ### tests!
+
+
+def test_pull_issue13_excluded():
+    issue = get_issue_by_number(13)
+
+    # should NOT be ignored
+    assert not issue.is_ignored
+
+    # should NOT be excluded by this config
+    assert os.path.exists(path_to('../docsdocs',
+                                  '13-test-include-and-exclude-criteria-based-on-labels.md'))
 
 
 def test_markdown_issue1():

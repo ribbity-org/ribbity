@@ -162,6 +162,16 @@ def test_pull_issue10_basic_properties():
                                       '10-test-ignore-functionality.md'))
 
 
+def test_pull_issue13_excluded():
+    issue = get_issue_by_number(13)
+
+    # should NOT be ignored, but should still be excluded
+    assert not issue.is_ignored
+
+    assert not os.path.exists(path_to('../docs',
+                                      '13-test-include-and-exclude-criteria-based-on-labels.md'))
+
+
 def test_markdown_issue1():
     # look at issue1 markdown output
     md = load_md('1-test-issue-number-1.md')
@@ -253,6 +263,7 @@ def test_markdown_issue11_empty():
     md = load_md('11-this-is-an-empty-issue-no-content-at-all.md')
     md = md.strip()
     assert md.endswith('---')
+
 
 
 def test_extra_page():

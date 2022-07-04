@@ -6,7 +6,8 @@ DEFAULTS = dict(
     docs_dir = 'docs',
     site_templates = 'site-templates',
 
-    issue_title_prefix = "Example: "
+    issue_title_prefix = "Example: ",
+    exclude_labels = [],
 )
 
 class RibbityConfig:
