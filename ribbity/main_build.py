@@ -34,6 +34,21 @@ def main(configfile):
 
     print(f"loaded {len(issues_list)} issues from '{issues_dump}'")
 
+    # handle include_only labels
+    if config.include_only_labels:
+        include_labels = set(config.include_only_labels)
+        new_issues_list = []
+
+        for ix in issues_list:
+            ix_labels = set(( l.name for l in ix.labels ))
+            if include_labels & ix_labels:
+                new_issues_list.append(ix)
+
+        if len(new_issues_list) != issues_list:
+            print(f"removed {len(issues_list) - len(new_issues_list)} issues because of include_only labels",
+                  file=sys.stderr)
+            issues_list = new_issues_list
+
     # handle ignored
     new_issues_list = [ ix for ix in issues_list if not ix.is_ignored ]
     if len(new_issues_list) != issues_list:
@@ -41,7 +56,7 @@ def main(configfile):
               file=sys.stderr)
         issues_list = new_issues_list
 
-    # handle exclude
+    # handle exclude_labels
     if config.exclude_labels:
         exclude_labels = set(config.exclude_labels)
         new_issues_list = []
