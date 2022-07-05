@@ -305,3 +305,6 @@ def test_ignore_labels():
 
     md = load_md('9-this-issue-refers-to-another-issue.md')
     assert not "test ignore label" in md
+
+    labels_md = load_md('labels.md')
+    assert "l-ignore-this-label.md" not in labels_md

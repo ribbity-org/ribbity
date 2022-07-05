@@ -7,3 +7,11 @@
 
 specifically, issue 7 is [Example: issue with labels!](7-issue-with-labels.md)
 
+
+## Categories
+
+This example belongs to the following categories:
+
+ * [test ignore label](l-ignore-this-label.md)
+
+
