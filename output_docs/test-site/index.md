@@ -38,10 +38,6 @@ Make a copy, put it in `./site-templates`, and edit it for your own project!
 
 
 
-
-
-
-
 ---
 
 ## [All examples](examples.md)
