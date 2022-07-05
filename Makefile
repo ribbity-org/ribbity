@@ -15,7 +15,6 @@ pulltest:
 	py.test tests
 
 test:
-	ribbity build config-test.toml
 	py.test tests
 
 update_output:
