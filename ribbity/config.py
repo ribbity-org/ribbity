@@ -9,6 +9,7 @@ DEFAULTS = dict(
     issue_title_prefix = "Example: ",
     exclude_labels = [],
     include_only_labels = [],
+    ignore_labels = [],
 )
 
 class RibbityConfig:

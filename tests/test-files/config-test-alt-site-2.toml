@@ -4,7 +4,12 @@ site_url = "https://ribbity-org.github.io/ribbity/"
 github_repo = "ribbity-org/ribbity-test-repo"
 
 add_pages = [ "index.md" ]
+
+# only include issues with this label...
 include_only_labels = [ "include-only-me" ]
+
+# ...but ignore this label in output.
+ignore_labels = [ "include-only-me" ]
 
 github_username = 'ctb'
 

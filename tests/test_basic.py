@@ -298,3 +298,10 @@ def test_rmdir():
 
     # check - is 'newfilename' there?
     assert not os.path.exists(newfilename)
+
+
+def test_ignore_labels():
+    assert not os.path.exists(build_path('l-ignore-this-label.md'))
+
+    md = load_md('9-this-issue-refers-to-another-issue.md')
+    assert not "test ignore label" in md

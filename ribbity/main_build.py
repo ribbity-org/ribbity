@@ -14,6 +14,7 @@ from ribbity.render import Piggy
 from ribbity.version import version
 from ribbity.config import RibbityConfig
 from ribbity.parse_md import rewrite_issue_body
+from ribbity import objects
 
 
 def main(configfile):
@@ -89,14 +90,28 @@ def main(configfile):
     os.mkdir(config.docs_dir)
     print(f"created '{config.docs_dir}' subdirectory", file=sys.stderr)
 
+    # remove ignore_labels
+    ignore_labels = set(config.ignore_labels)
+    new_issues_list = []
+    for ix in issues_list:
+        issue_labels = [ xx for xx in ix.labels if xx.name not in ignore_labels ]
+        if issue_labels != ix.labels:
+            new_ix = objects.Issue(ix.number, ix.title, ix.body, issue_labels)
+            new_issues_list.append(new_ix)
+        else:
+            new_issues_list.append(ix)
+    issues_list = new_issues_list
+
     # organize issues and labels
     labels_to_issues = defaultdict(list)
     issues_by_number = {}
 
+    ignore_labels = set(config.ignore_labels)
     for issue in issues_list:
         issues_by_number[issue.number] = issue
         for label in issue.labels:
-            labels_to_issues[label].append(issue)
+            if label.name not in ignore_labels:
+                labels_to_issues[label].append(issue)
 
     # build piggy object
     piggy_obj = Piggy(issues_list, labels_to_issues, config)

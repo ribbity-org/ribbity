@@ -6,6 +6,8 @@ github_repo = "ribbity-org/ribbity-test-repo"
 add_pages = [ "index.md", "examples.md", "labels.md", "a-page.md"]
 exclude_labels = [ "exclude-me" ]
 
+ignore_labels = [ "ignore-this-label" ]
+
 github_username = 'ctb'
 
 issues_dump = 'ribbity-test.dmp'
