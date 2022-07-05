@@ -11,11 +11,9 @@ serve:
 
 pulltest:
 	ribbity pull config-test.toml
-	ribbity build config-test.toml
 	py.test tests
 
 test:
-	ribbity build config-test.toml
 	py.test tests
 
 update_output:

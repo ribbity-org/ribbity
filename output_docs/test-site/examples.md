@@ -10,6 +10,10 @@
 
 
 
+[Example: test include and exclude criteria based on labels!](13-test-include-and-exclude-criteria-based-on-labels.md)
+
+
+
 [Example: issue with labels!](7-issue-with-labels.md)
 
 
