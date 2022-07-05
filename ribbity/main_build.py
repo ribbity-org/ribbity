@@ -106,7 +106,7 @@ def main(configfile):
         with open(filepath, "wt") as fp:
             md = piggy_obj.render("_generic_issue.md", issue=issue, body=body)
             fp.write(md)
-        print(f'wrote to {filepath}', end='\r', file=sys.stderr)
+        print(f'wrote to {filepath}', end='\r\033[K', file=sys.stderr)
 
     # output all labels:
     for label, issues_for_label in labels_to_issues.items():
@@ -116,7 +116,7 @@ def main(configfile):
                                   label=label,
                                   issues_for_label=issues_for_label)
             fp.write(md)
-        print(f"wrote to {label_filename}", end='\r', file=sys.stderr)
+        print(f"wrote to {label_filename}", end='\r\033[K', file=sys.stderr)
 
     ### make mkdocs.yml
     nav_contents = []
@@ -134,7 +134,7 @@ def main(configfile):
     with open('mkdocs.yml', 'wt') as fp:
         for element in mkdocs_config:
             print(yaml.safe_dump(element), file=fp)
-    print("wrote mkdocs.yml", file=sys.stderr, end='\r')
+    print("wrote mkdocs.yml", file=sys.stderr, end='\r\033[K')
 
     ## set up variable dict for rendering
     issues_list.sort()
@@ -151,7 +151,7 @@ def main(configfile):
         filepath = os.path.join(config.docs_dir, filename)
         with open(filepath, "wt") as fp:
             fp.write(md)
-        print(f"built {filepath}", file=sys.stderr, end='\r')
+        print(f"built {filepath}", file=sys.stderr, end='\r\033[K')
 
     print("\nribbity is done!", file=sys.stderr)
 
