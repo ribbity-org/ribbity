@@ -12,8 +12,15 @@ from ribbity.main_build import main as main_build
 _testdir = None
 
 
-from test_basic import get_issue_by_number
+from test_basic import get_issue_by_number, path_to
 
+
+#
+# this module setup/teardown function establishes a clean environment
+# in a temp directory and then builds the ribbity site there.
+#
+# note: 'config-test-alt-site.toml' builds under docsdocs/.
+#
 
 @pytest.fixture(autouse=True, scope='module')
 def module_setup_teardown():
@@ -49,13 +56,12 @@ def module_setup_teardown():
     print('done with tests!')
 
 
-thisdir = os.path.dirname(os.path.abspath(__file__))
-def path_to(*p):
-    return os.path.join(thisdir, *p)
+def build_path(filename):
+    return os.path.join(_testdir, 'docsdocs', filename)
 
 
 def load_md(filename):
-    with open(path_to(_testdir, 'docsdocs', filename), 'rt') as fp:
+    with open(build_path(filename), 'rt') as fp:
         md = fp.read()
 
     md = md.lstrip()
@@ -72,8 +78,7 @@ def test_pull_issue13_excluded():
     assert not issue.is_ignored
 
     # should NOT be excluded by this config
-    assert os.path.exists(path_to('../docsdocs',
-                                  '13-test-include-and-exclude-criteria-based-on-labels.md'))
+    assert os.path.exists(build_path('13-test-include-and-exclude-criteria-based-on-labels.md'))
 
 
 def test_markdown_issue1():
