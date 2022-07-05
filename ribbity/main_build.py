@@ -34,11 +34,14 @@ def main(configfile):
 
     print(f"loaded {len(issues_list)} issues from '{issues_dump}'")
 
+    #
     # handle include_only labels
+    #
     if config.include_only_labels:
         include_labels = set(config.include_only_labels)
         new_issues_list = []
 
+        # every issue must include at least one include label.
         for ix in issues_list:
             ix_labels = set(( l.name for l in ix.labels ))
             if include_labels & ix_labels:
@@ -49,17 +52,23 @@ def main(configfile):
                   file=sys.stderr)
             issues_list = new_issues_list
 
-    # handle ignored
+    #
+    # handle ignored - if individual page config is set to 'ignore'.
+    #
     new_issues_list = [ ix for ix in issues_list if not ix.is_ignored ]
     if len(new_issues_list) != issues_list:
         print(f"ignored {len(issues_list) - len(new_issues_list)} issues because 'ignore = true' was set",
               file=sys.stderr)
         issues_list = new_issues_list
 
+    #
     # handle exclude_labels
+    #
     if config.exclude_labels:
         exclude_labels = set(config.exclude_labels)
         new_issues_list = []
+
+        # if an issue has one or more of the exclusion labels, exclude!
         for ix in issues_list:
             ix_labels = set(( l.name for l in ix.labels ))
             if not exclude_labels & ix_labels:
