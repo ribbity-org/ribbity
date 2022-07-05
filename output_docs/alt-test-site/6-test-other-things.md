@@ -8,5 +8,3 @@
 * no config
 * title rewriting
 
-
-

@@ -19,6 +19,16 @@ Make a copy, put it in `./site-templates`, and edit it for your own project!
 
 
 
+[IssuePrefix: test include and exclude criteria based on labels!](13-test-include-and-exclude-criteria-based-on-labels.md)
+
+
+
+
+
+
+
+
+
 
 
 

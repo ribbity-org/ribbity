@@ -10,6 +10,10 @@
 
 
 
+[Example: test include and exclude criteria based on labels!](13-test-include-and-exclude-criteria-based-on-labels.md)
+
+
+
 [Example: issue with labels!](7-issue-with-labels.md)
 
 
@@ -22,7 +26,15 @@
 
 
 
+[Example: this is an empty issue! no content at all!](11-this-is-an-empty-issue-no-content-at-all.md)
+
+
+
 [Example: this issue refers to another issue](9-this-issue-refers-to-another-issue.md)
+
+
+
+[Example: various different markdown checks](12-various-different-markdown-checks.md)
 
 
 
