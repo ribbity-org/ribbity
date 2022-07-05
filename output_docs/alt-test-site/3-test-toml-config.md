@@ -15,4 +15,3 @@ priority = 5 # default priority 999 => in with all the rest :). 1 pushes it to t
 
 this example should show up front page. has priority = 5.
 
-

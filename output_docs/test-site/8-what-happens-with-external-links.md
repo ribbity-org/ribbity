@@ -18,6 +18,9 @@ they should be left alone if they are in a [markdown link](https://github.com/so
 screenshots should also work, so img etc. like this: 
 <img width="624" alt="Screen Shot 2022-05-19 at 6 15 16 AM" src="https://user-images.githubusercontent.com/51016/169303662-d4910147-c143-40f0-8039-9a2d8c56df7d.png">
 
+```
+this should not be parsed http://google.com/
+```
 
 at end: [http://github.com/ribbity-org/ribbity](http://github.com/ribbity-org/ribbity)
 

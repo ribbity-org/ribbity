@@ -8,7 +8,6 @@
 this issue has labels.
 
 
-
 ## Categories
 
 This example belongs to the following categories:
