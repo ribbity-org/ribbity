@@ -8,3 +8,5 @@ add_pages = [ "index.md", "examples.md", "labels.md" ]
 github_username = 'ctb'
 
 issues_dump = 'ribbity-docs.dmp'
+
+nav_contents = { 'Home'='index.md', 'All examples'='examples.md', 'All categories'='labels.md' }
