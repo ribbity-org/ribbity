@@ -144,9 +144,13 @@ def main(configfile):
 
     ### make mkdocs.yml
     nav_contents = []
-    nav_contents.append(dict(Home='index.md'))
-    nav_contents.append({'All examples': 'examples.md'})
-    nav_contents.append({'All categories': 'labels.md'})
+    if hasattr(config, 'nav_contents'):
+        for k, v in config.nav_contents.items():
+            nav_contents.append({ k: v })
+    else:
+        nav_contents.append(dict(Home='index.md'))
+        nav_contents.append({'All examples': 'examples.md'})
+        nav_contents.append({'All categories': 'labels.md'})
 
     ## write mkdocs.yml
     mkdocs_config = [dict(site_name=config.site_name),
